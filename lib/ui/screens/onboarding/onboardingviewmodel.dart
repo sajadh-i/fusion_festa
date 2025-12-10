@@ -1,3 +1,6 @@
+import 'package:flutter/widgets.dart';
+import 'package:fusion_festa/app/app.router.dart';
+import 'package:fusion_festa/app/utils.dart';
 import 'package:fusion_festa/constants/assets.gen.dart';
 import 'package:fusion_festa/models/onboardingitems.dart';
 import 'package:stacked/stacked.dart';
@@ -45,6 +48,6 @@ class Onboardingviewmodel extends BaseViewModel {
 
   void _goToLogin() {
     // TODO: use your navigationService & route
-    // navigationService.replaceWith(Routes.loginView);
+    navigationService.replaceWith(Routes.loginView);
   }
 }

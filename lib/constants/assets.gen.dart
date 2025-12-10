@@ -58,6 +58,10 @@ class $AssetsFontsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/loginimage.jpg
+  AssetGenImage get loginimage =>
+      const AssetGenImage('assets/images/loginimage.jpg');
+
   /// File path: assets/images/logo5.jpg
   AssetGenImage get logo5 => const AssetGenImage('assets/images/logo5.jpg');
 
@@ -74,7 +78,13 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/onboard3.jpg');
 
   /// List of all assets
-  List<AssetGenImage> get values => [logo5, onboard1, onboard2, onboard3];
+  List<AssetGenImage> get values => [
+    loginimage,
+    logo5,
+    onboard1,
+    onboard2,
+    onboard3,
+  ];
 }
 
 class Assets {

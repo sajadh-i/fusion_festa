@@ -1,3 +1,4 @@
+import 'package:fusion_festa/ui/screens/login/login_view.dart';
 import 'package:fusion_festa/ui/screens/onboarding/onboardingview.dart';
 import 'package:fusion_festa/ui/screens/splash/splashview.dart';
 import 'package:stacked/stacked_annotations.dart';
@@ -10,6 +11,7 @@ import '../services/user_service.dart';
   routes: [
     MaterialRoute(page: Splashview, initial: true),
     MaterialRoute(page: Onboardingview),
+    MaterialRoute(page: LoginView),
   ],
   dependencies: [
     LazySingleton(classType: ApiService),
