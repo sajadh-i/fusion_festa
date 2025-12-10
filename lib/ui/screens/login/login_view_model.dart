@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fusion_festa/app/app.router.dart';
+import 'package:fusion_festa/app/utils.dart';
 import 'package:stacked/stacked.dart';
 
 class LoginViewModel extends BaseViewModel {
@@ -45,8 +47,15 @@ class LoginViewModel extends BaseViewModel {
     // navigationService.replaceWith(Routes.homeView);
   }
 
+  void tapsignup() {
+    navigationService.navigateTo(Routes.signUpView);
+  }
+
+  void tapforgotpassword() {
+    navigationService.navigateTo(Routes.forPassView);
+  }
+
   void onGoogleLogin() {}
-  void onForgotPassword() {}
 
   @override
   void dispose() {

@@ -95,6 +95,7 @@ class LoginView extends StatelessWidget {
                           // FORM
                           Form(
                             key: viewModel.formKey,
+                            autovalidateMode: AutovalidateMode.disabled,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -108,34 +109,45 @@ class LoginView extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 8),
 
-                                // Email field
-                                Container(
-                                  height: 56,
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFF2B1817),
-                                    borderRadius: BorderRadius.circular(18),
-                                    border: Border.all(
-                                      color: const Color(0xFF4A3332),
+                                //email
+                                TextFormField(
+                                  controller: viewModel.emailController,
+                                  validator: viewModel.validateEmail,
+                                  style: const TextStyle(color: Colors.white),
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: const Color(0xFF2B1817),
+                                    prefixIcon: const Icon(
+                                      Icons.person_outline,
+                                      color: Color(0xFFD7C9C7),
                                     ),
-                                  ),
-                                  child: TextFormField(
-                                    controller: viewModel.emailController,
-                                    style: const TextStyle(color: Colors.white),
-                                    validator: viewModel.validateEmail,
-                                    decoration: const InputDecoration(
-                                      border: InputBorder.none,
-                                      prefixIcon: Icon(
-                                        Icons.person_outline,
-                                        color: Color(0xFFD7C9C7),
+                                    hintText: 'Enter your email or username',
+                                    hintStyle: const TextStyle(
+                                      color: Color(0xFFB39C9A),
+                                      fontSize: 14,
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(18),
+                                      borderSide: const BorderSide(
+                                        color: Color(0xFF4A3332),
                                       ),
-                                      hintText: 'Enter your email or username',
-                                      hintStyle: TextStyle(
-                                        color: Color(0xFFB39C9A),
-                                        fontSize: 14,
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(18),
+                                      borderSide: const BorderSide(
+                                        color: Color(0xFF4A3332),
                                       ),
-                                      contentPadding: EdgeInsets.symmetric(
-                                        horizontal: 0,
-                                        vertical: 16,
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(18),
+                                      borderSide: const BorderSide(
+                                        color: Colors.redAccent,
+                                      ),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(18),
+                                      borderSide: const BorderSide(
+                                        color: Colors.redAccent,
                                       ),
                                     ),
                                   ),
@@ -154,46 +166,45 @@ class LoginView extends StatelessWidget {
                                 const SizedBox(height: 8),
 
                                 // Password field
-                                Container(
-                                  height: 56,
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFF2B1817),
-                                    borderRadius: BorderRadius.circular(18),
-                                    border: Border.all(
-                                      color: const Color(0xFF4A3332),
+                                TextFormField(
+                                  controller: viewModel.passwordController,
+                                  validator: viewModel.validatePassword,
+                                  style: const TextStyle(color: Colors.white),
+                                  decoration: InputDecoration(
+                                    filled: true,
+                                    fillColor: const Color(0xFF2B1817),
+                                    prefixIcon: const Icon(
+                                      Icons.person_outline,
+                                      color: Color(0xFFD7C9C7),
                                     ),
-                                  ),
-                                  child: TextFormField(
-                                    controller: viewModel.passwordController,
-                                    obscureText: viewModel.isPasswordObscured,
-                                    style: const TextStyle(color: Colors.white),
-                                    validator: viewModel.validatePassword,
-                                    decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      prefixIcon: const Icon(
-                                        Icons.lock_outline,
-                                        color: Color(0xFFD7C9C7),
+                                    hintText: 'Enter your password',
+                                    hintStyle: const TextStyle(
+                                      color: Color(0xFFB39C9A),
+                                      fontSize: 14,
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(18),
+                                      borderSide: const BorderSide(
+                                        color: Color(0xFF4A3332),
                                       ),
-                                      suffixIcon: IconButton(
-                                        icon: Icon(
-                                          viewModel.isPasswordObscured
-                                              ? Icons.visibility_off_outlined
-                                              : Icons.visibility_outlined,
-                                          color: const Color(0xFFD7C9C7),
-                                        ),
-                                        onPressed:
-                                            viewModel.togglePasswordVisibility,
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(18),
+                                      borderSide: const BorderSide(
+                                        color: Color(0xFF4A3332),
                                       ),
-                                      hintText: 'Enter your password',
-                                      hintStyle: const TextStyle(
-                                        color: Color(0xFFB39C9A),
-                                        fontSize: 14,
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(18),
+                                      borderSide: const BorderSide(
+                                        color: Colors.redAccent,
                                       ),
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                            horizontal: 0,
-                                            vertical: 16,
-                                          ),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(18),
+                                      borderSide: const BorderSide(
+                                        color: Colors.redAccent,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -207,11 +218,11 @@ class LoginView extends StatelessWidget {
                           Align(
                             alignment: Alignment.centerRight,
                             child: TextButton(
-                              onPressed: viewModel.onForgotPassword,
+                              onPressed: viewModel.tapforgotpassword,
                               style: TextButton.styleFrom(
                                 padding: EdgeInsets.zero,
                               ),
-                              child: const Text(
+                              child: Text(
                                 'Forgot Password?',
                                 style: TextStyle(
                                   color: Color(0xFFFF3B30),
@@ -317,25 +328,31 @@ class LoginView extends StatelessWidget {
                             ),
                           ),
 
-                          const SizedBox(height: 24),
+                          SizedBox(height: 24),
 
                           // Bottom sign up text
                           Center(
-                            child: Wrap(
-                              children: const [
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
                                 Text(
-                                  "Don't have an account? ",
+                                  "Don't have an account?",
                                   style: TextStyle(
                                     color: Color(0xFFCAC4C9),
                                     fontSize: 14,
                                   ),
                                 ),
-                                Text(
-                                  'Sign Up',
-                                  style: TextStyle(
-                                    color: Color(0xFFFF3B30),
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
+                                TextButton(
+                                  onPressed: () {
+                                    viewModel.tapsignup();
+                                  },
+                                  child: Text(
+                                    'Sign Up',
+                                    style: TextStyle(
+                                      color: Color(0xFFFF3B30),
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                 ),
                               ],
