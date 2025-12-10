@@ -58,17 +58,23 @@ class $AssetsFontsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
-  /// File path: assets/images/banner.png
-  AssetGenImage get banner => const AssetGenImage('assets/images/banner.png');
+  /// File path: assets/images/logo5.jpg
+  AssetGenImage get logo5 => const AssetGenImage('assets/images/logo5.jpg');
 
-  /// File path: assets/images/logo.png
-  AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
+  /// File path: assets/images/onboard1.jpg
+  AssetGenImage get onboard1 =>
+      const AssetGenImage('assets/images/onboard1.jpg');
 
-  /// File path: assets/images/rahul.jpeg
-  AssetGenImage get rahul => const AssetGenImage('assets/images/rahul.jpeg');
+  /// File path: assets/images/onboard2.jpg
+  AssetGenImage get onboard2 =>
+      const AssetGenImage('assets/images/onboard2.jpg');
+
+  /// File path: assets/images/onboard3.jpg
+  AssetGenImage get onboard3 =>
+      const AssetGenImage('assets/images/onboard3.jpg');
 
   /// List of all assets
-  List<AssetGenImage> get values => [banner, logo, rahul];
+  List<AssetGenImage> get values => [logo5, onboard1, onboard2, onboard3];
 }
 
 class Assets {

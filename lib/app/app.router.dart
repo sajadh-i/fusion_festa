@@ -6,9 +6,9 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/cupertino.dart' as _i4;
-import 'package:flutter/material.dart' as _i3;
+import 'package:flutter/material.dart' as _i4;
 import 'package:flutter/material.dart';
+import 'package:fusion_festa/ui/screens/onboarding/onboardingview.dart' as _i3;
 import 'package:fusion_festa/ui/screens/splash/splashview.dart' as _i2;
 import 'package:stacked/stacked.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i5;
@@ -16,12 +16,15 @@ import 'package:stacked_services/stacked_services.dart' as _i5;
 class Routes {
   static const splashview = '/';
 
-  static const all = <String>{splashview};
+  static const onboardingview = '/Onboardingview';
+
+  static const all = <String>{splashview, onboardingview};
 }
 
 class StackedRouter extends _i1.RouterBase {
   final _routes = <_i1.RouteDef>[
     _i1.RouteDef(Routes.splashview, page: _i2.Splashview),
+    _i1.RouteDef(Routes.onboardingview, page: _i3.Onboardingview),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -29,8 +32,17 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<SplashviewArguments>(
         orElse: () => const SplashviewArguments(),
       );
-      return _i3.MaterialPageRoute<dynamic>(
+      return _i4.MaterialPageRoute<dynamic>(
         builder: (context) => _i2.Splashview(key: args.key),
+        settings: data,
+      );
+    },
+    _i3.Onboardingview: (data) {
+      final args = data.getArgs<OnboardingviewArguments>(
+        orElse: () => const OnboardingviewArguments(),
+      );
+      return _i4.MaterialPageRoute<dynamic>(
+        builder: (context) => _i3.Onboardingview(key: args.key),
         settings: data,
       );
     },
@@ -65,6 +77,28 @@ class SplashviewArguments {
   }
 }
 
+class OnboardingviewArguments {
+  const OnboardingviewArguments({this.key});
+
+  final _i4.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant OnboardingviewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
 extension NavigatorStateExtension on _i5.NavigationService {
   Future<dynamic> navigateToSplashview({
     _i4.Key? key,
@@ -84,6 +118,24 @@ extension NavigatorStateExtension on _i5.NavigationService {
     );
   }
 
+  Future<dynamic> navigateToOnboardingview({
+    _i4.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return navigateTo<dynamic>(
+      Routes.onboardingview,
+      arguments: OnboardingviewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
   Future<dynamic> replaceWithSplashview({
     _i4.Key? key,
     int? routerId,
@@ -95,6 +147,24 @@ extension NavigatorStateExtension on _i5.NavigationService {
     return replaceWith<dynamic>(
       Routes.splashview,
       arguments: SplashviewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> replaceWithOnboardingview({
+    _i4.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return replaceWith<dynamic>(
+      Routes.onboardingview,
+      arguments: OnboardingviewArguments(key: key),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,

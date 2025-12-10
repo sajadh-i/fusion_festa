@@ -1,9 +1,12 @@
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:fusion_festa/firebase_options.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:fusion_festa/ui/tools/screen_size.dart';
 import 'package:fusion_festa/app/app.locator.dart';
@@ -11,6 +14,9 @@ import 'package:fusion_festa/app/app.router.dart';
 import 'package:fusion_festa/constants/app_strings.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -41,6 +47,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      // theme: ThemeData(scaffoldBackgroundColor: Colors.white),
       theme: ThemeData(scaffoldBackgroundColor: const Color(0xFFFFFBF1)),
       title: AppStrings.appName,
       builder: (context, child) {
