@@ -81,7 +81,7 @@ class SignUpView extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: 8),
-                            _RoundedField(
+                            RoundedField(
                               controller: viewModel.fullNameController,
                               hint: 'Enter your full name',
                               prefixIcon: Icons.person_outline,
@@ -101,7 +101,7 @@ class SignUpView extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: 8),
-                            _RoundedField(
+                            RoundedField(
                               controller: viewModel.emailController,
                               hint: 'Enter your email address',
                               prefixIcon: Icons.mail_outline,
@@ -122,7 +122,7 @@ class SignUpView extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: 8),
-                            _RoundedField(
+                            RoundedField(
                               controller: viewModel.passwordController,
                               hint: 'Enter your password',
                               prefixIcon: Icons.lock_outline,
@@ -151,7 +151,7 @@ class SignUpView extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: 8),
-                            _RoundedField(
+                            RoundedField(
                               controller: viewModel.confirmPasswordController,
                               hint: 'Confirm your password',
                               prefixIcon: Icons.lock_outline,
@@ -365,7 +365,7 @@ class SignUpView extends StatelessWidget {
   }
 }
 
-class _RoundedField extends StatelessWidget {
+class RoundedField extends StatelessWidget {
   final TextEditingController controller;
   final String hint;
   final IconData prefixIcon;
@@ -374,7 +374,8 @@ class _RoundedField extends StatelessWidget {
   final Widget? suffix;
   final TextInputType? keyboardType;
 
-  const _RoundedField({
+  const RoundedField({
+    super.key,
     required this.controller,
     required this.hint,
     required this.prefixIcon,
@@ -386,29 +387,35 @@ class _RoundedField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 56,
-      decoration: BoxDecoration(
-        color: const Color(0xFF191615),
-        borderRadius: BorderRadius.circular(28),
-        border: Border.all(color: const Color(0xFF403532)),
-      ),
-      child: TextFormField(
-        controller: controller,
-        obscureText: obscure,
-        validator: validator,
-        keyboardType: keyboardType,
-        style: const TextStyle(color: Colors.white),
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          prefixIcon: Icon(prefixIcon, color: const Color(0xFFD7C9C7)),
-          suffixIcon: suffix,
-          hintText: hint,
-          hintStyle: const TextStyle(color: Color(0xFF8F8A86), fontSize: 14),
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 0,
-            vertical: 16,
-          ),
+    return TextFormField(
+      controller: controller,
+      obscureText: obscure,
+      validator: validator,
+      keyboardType: keyboardType,
+      style: const TextStyle(color: Colors.white),
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: const Color(0xFF191615),
+        prefixIcon: Icon(prefixIcon, color: const Color(0xFFD7C9C7)),
+        suffixIcon: suffix,
+        hintText: hint,
+        hintStyle: const TextStyle(color: Color(0xFF8F8A86), fontSize: 14),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 16),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(28),
+          borderSide: const BorderSide(color: Color(0xFF403532)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(28),
+          borderSide: const BorderSide(color: Color(0xFF403532)),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(28),
+          borderSide: const BorderSide(color: Colors.redAccent),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(28),
+          borderSide: const BorderSide(color: Colors.redAccent),
         ),
       ),
     );

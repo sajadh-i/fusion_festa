@@ -44,7 +44,7 @@ class LoginViewModel extends BaseViewModel {
     if (formKey.currentState?.validate() != true) return;
 
     // TODO: call API, then navigate
-    // navigationService.replaceWith(Routes.homeView);
+    navigationService.replaceWith(Routes.navbarView);
   }
 
   void tapsignup() {

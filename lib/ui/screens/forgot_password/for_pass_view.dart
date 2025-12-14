@@ -85,34 +85,49 @@ class ForPassView extends StatelessWidget {
                           const SizedBox(height: 8),
 
                           // Email field
-                          Container(
-                            height: 56,
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF151821),
-                              borderRadius: BorderRadius.circular(18),
-                              border: Border.all(
-                                color: const Color(0xFF343843),
+                          TextFormField(
+                            controller: viewModel.emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            style: const TextStyle(color: Colors.white),
+                            validator: viewModel.validateEmail,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: const Color(0xFF151821),
+                              prefixIcon: const Icon(
+                                Icons.mail_outline,
+                                color: Color(0xFFCAC4C9),
                               ),
-                            ),
-                            child: TextFormField(
-                              controller: viewModel.emailController,
-                              keyboardType: TextInputType.emailAddress,
-                              style: const TextStyle(color: Colors.white),
-                              validator: viewModel.validateEmail,
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                prefixIcon: Icon(
-                                  Icons.mail_outline,
-                                  color: Color(0xFFCAC4C9),
+                              hintText: 'Enter your email',
+                              hintStyle: const TextStyle(
+                                color: Color(0xFF7C818F),
+                                fontSize: 14,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 0,
+                                vertical: 16,
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(18),
+                                borderSide: const BorderSide(
+                                  color: Color(0xFF343843),
                                 ),
-                                hintText: 'Enter your email',
-                                hintStyle: TextStyle(
-                                  color: Color(0xFF7C818F),
-                                  fontSize: 14,
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(18),
+                                borderSide: const BorderSide(
+                                  color: Color(0xFF343843),
                                 ),
-                                contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 0,
-                                  vertical: 16,
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(18),
+                                borderSide: const BorderSide(
+                                  color: Colors.redAccent,
+                                ),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(18),
+                                borderSide: const BorderSide(
+                                  color: Colors.redAccent,
                                 ),
                               ),
                             ),

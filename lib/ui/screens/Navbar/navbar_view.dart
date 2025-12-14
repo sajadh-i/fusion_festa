@@ -1,0 +1,74 @@
+import 'package:flutter/material.dart';
+import 'package:fusion_festa/ui/screens/Navbar/navbar_view_model.dart';
+import 'package:fusion_festa/ui/screens/bookingdetails/booking_details_view.dart';
+
+import 'package:fusion_festa/ui/screens/event_screen/event_screen_view.dart';
+import 'package:fusion_festa/ui/screens/home_screen/home_screen_view.dart';
+
+import 'package:fusion_festa/ui/screens/profile/profile_view.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:stacked/stacked.dart';
+
+class NavbarView extends StatelessWidget {
+  const NavbarView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ViewModelBuilder<NavbarViewModel>.reactive(
+      viewModelBuilder: () => NavbarViewModel(),
+      builder: (context, viewModel, child) {
+        // All four main screens of Fusion Festa
+        final screens = [
+          HomeScreenView(
+            onGoToEvents: () {
+              viewModel.onTabChange(1);
+            },
+          ), // main discovery / dashboard
+          EventScreenView(), // event listing screen you built
+          BookingDetailsView(), // event booking / tickets
+          ProfileView(), // user profile
+        ];
+
+        return Scaffold(
+          backgroundColor: const Color(0xFF0D0606),
+          body: IndexedStack(index: viewModel.currentIndex, children: screens),
+          bottomNavigationBar: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xFF141010), // nav bar background
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.7),
+                  blurRadius: 12,
+                  offset: const Offset(0, -4),
+                ),
+              ],
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+            child: GNav(
+              selectedIndex: viewModel.currentIndex,
+              onTabChange: viewModel.onTabChange,
+              gap: 8,
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+              // Fusion Festa colors
+              backgroundColor: const Color(0xFF141010),
+              color: const Color(0xFF9B8C88), // inactive icon/text
+              iconSize: 22,
+              activeColor: Colors.white, // active icon/text
+              tabBackgroundColor: const Color(0xFFFF2B2B), // red pill
+              rippleColor: const Color(0x33FF2B2B), // red ripple
+              hoverColor: const Color(0x33FFFFFF),
+              duration: const Duration(milliseconds: 250),
+              curve: Curves.easeOutCubic,
+              tabs: const [
+                GButton(icon: Icons.home_filled, text: 'Home'),
+                GButton(icon: Icons.event_rounded, text: 'Events'),
+                GButton(icon: Icons.confirmation_num_rounded, text: 'Bookings'),
+                GButton(icon: Icons.person_rounded, text: 'Profile'),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
