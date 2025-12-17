@@ -81,6 +81,10 @@ class $AssetsImagesGen {
   AssetGenImage get onboard3 =>
       const AssetGenImage('assets/images/onboard3.jpg');
 
+  /// File path: assets/images/profile avatar.jpg
+  AssetGenImage get profileAvatar =>
+      const AssetGenImage('assets/images/profile avatar.jpg');
+
   /// File path: assets/images/signupimage.jpg
   AssetGenImage get signupimage =>
       const AssetGenImage('assets/images/signupimage.jpg');
@@ -96,6 +100,7 @@ class $AssetsImagesGen {
     onboard1,
     onboard2,
     onboard3,
+    profileAvatar,
     signupimage,
     ticket,
   ];

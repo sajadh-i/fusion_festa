@@ -165,7 +165,7 @@ class HomeScreenView extends StatelessWidget {
                               elevation: 8,
                               shadowColor: const Color(
                                 0xFFFF8A3D,
-                              ).withOpacity(0.6),
+                              ).withAlpha((0.6 * 255).toInt()), // ≈ 153
                             ),
                             child: Text(
                               'Get Started',
@@ -178,7 +178,7 @@ class HomeScreenView extends StatelessWidget {
                           ),
                         ),
 
-                        SizedBox(height: 80 * h),
+                        SizedBox(height: 150 * h),
 
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,

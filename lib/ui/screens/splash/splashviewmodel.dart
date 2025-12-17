@@ -35,9 +35,22 @@ class SplashViewModel extends BaseViewModel {
   }
 
   void _navigateNext() {
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 5), () async {
       // TODO: use your navigationService here
       // navigationService.navigateTo(Routes.loginview);
+      final isLockEnabled = await securitypref.getSystemLock();
+
+      if (isLockEnabled) {
+        final didAuth = await lockauth.authenticate(
+          localizedReason: 'Unlock Fusion Festa',
+          biometricOnly: false,
+        );
+
+        if (!didAuth) {
+          // User failed auth → stay on splash
+          return;
+        }
+      }
       navigationService.pushNamedAndRemoveUntil(Routes.onboardingview);
     });
   }

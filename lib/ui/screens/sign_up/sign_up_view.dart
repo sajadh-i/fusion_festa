@@ -267,45 +267,44 @@ class SignUpView extends StatelessWidget {
                               ),
                             ),
 
-                            const SizedBox(height: 12),
+                            // const SizedBox(height: 12),
 
-                            // Apple button
-                            SizedBox(
-                              width: double.infinity,
-                              height: 56,
-                              child: OutlinedButton(
-                                onPressed: viewModel.onAppleSignUp,
-                                style: OutlinedButton.styleFrom(
-                                  side: const BorderSide(
-                                    color: Color(0xFF4E3A39),
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(26),
-                                  ),
-                                  backgroundColor: const Color(0xFF191615),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      height: 22,
-                                      width: 22,
-                                      color: Colors.black,
-                                    ),
-                                    const SizedBox(width: 12),
-                                    const Text(
-                                      'Sign up with Apple',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-
+                            // // Apple button
+                            // SizedBox(
+                            //   width: double.infinity,
+                            //   height: 56,
+                            //   child: OutlinedButton(
+                            //     onPressed: viewModel.onfacebookSignUp,
+                            //     style: OutlinedButton.styleFrom(
+                            //       side: const BorderSide(
+                            //         color: Color(0xFF4E3A39),
+                            //       ),
+                            //       shape: RoundedRectangleBorder(
+                            //         borderRadius: BorderRadius.circular(26),
+                            //       ),
+                            //       backgroundColor: const Color(0xFF191615),
+                            //     ),
+                            //     child: Row(
+                            //       mainAxisAlignment: MainAxisAlignment.center,
+                            //       children: [
+                            //         Container(
+                            //           height: 22,
+                            //           width: 22,
+                            //           color: Colors.black,
+                            //         ),
+                            //         const SizedBox(width: 12),
+                            //         const Text(
+                            //           'Sign up with Apple',
+                            //           style: TextStyle(
+                            //             color: Colors.white,
+                            //             fontSize: 15,
+                            //             fontWeight: FontWeight.w500,
+                            //           ),
+                            //         ),
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ),
                             const SizedBox(height: 24),
 
                             // Already have account

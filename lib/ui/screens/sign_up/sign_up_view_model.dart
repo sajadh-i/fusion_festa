@@ -1,7 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import 'package:stacked/stacked.dart';
 import 'package:fusion_festa/app/app.router.dart';
 import 'package:fusion_festa/app/utils.dart';
-import 'package:stacked/stacked.dart';
+import 'package:fusion_festa/services/auth_service.dart';
+import 'package:fusion_festa/services/user_service.dart';
 
 class SignUpViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormState>();
@@ -14,6 +18,7 @@ class SignUpViewModel extends BaseViewModel {
   bool isPasswordObscured = true;
   bool isConfirmPasswordObscured = true;
 
+  // ---------------- TOGGLES ----------------
   void togglePasswordVisibility() {
     isPasswordObscured = !isPasswordObscured;
     notifyListeners();
@@ -24,68 +29,152 @@ class SignUpViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  // ---------------- VALIDATORS ----------------
   String? validateFullName(String? value) {
     final text = (value ?? '').trim();
     if (text.isEmpty) return 'Full name is required';
     if (text.length < 3) return 'Enter at least 3 characters';
-    if (!RegExp(r"^[a-zA-Z\s.]+$").hasMatch(text)) {
-      return 'Only letters and spaces allowed';
-    }
     return null;
   }
 
   String? validateEmail(String? value) {
     final text = (value ?? '').trim();
     if (text.isEmpty) return 'Email is required';
-    final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+$');
-    if (!emailRegex.hasMatch(text)) return 'Enter a valid email address';
-    return null;
-  }
-
-  String? validatePassword(String? value) {
-    final pwd = value ?? '';
-    if (pwd.isEmpty) return 'Password is required';
-    if (pwd.length < 8) return 'At least 8 characters required';
-
-    final hasUpper = RegExp(r'[A-Z]').hasMatch(pwd);
-    final hasLower = RegExp(r'[a-z]').hasMatch(pwd);
-    final hasDigit = RegExp(r'[0-9]').hasMatch(pwd);
-    final hasSpecial = RegExp(
-      r'[!@#$%^&*(),.?":{}|<>_\-\\/\[\]=+`~]',
-    ).hasMatch(pwd);
-
-    if (!hasUpper) return 'Include at least one uppercase letter';
-    if (!hasLower) return 'Include at least one lowercase letter';
-    if (!hasDigit) return 'Include at least one number';
-    if (!hasSpecial) return 'Include at least one special character';
-
-    return null;
-  }
-
-  String? validateConfirmPassword(String? value) {
-    final confirm = value ?? '';
-    if (confirm.isEmpty) return 'Confirm your password';
-    if (confirm != passwordController.text) {
-      return 'Passwords do not match';
+    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+$').hasMatch(text)) {
+      return 'Enter a valid email';
     }
     return null;
   }
 
-  void onCreateAccount() {
-    if (formKey.currentState?.validate() != true) return;
-    // TODO: call sign-up API, then navigate
+  String? validatePassword(String? value) {
+    final password = value ?? '';
+
+    if (password.isEmpty) {
+      return 'Password is required';
+    }
+
+    if (password.length < 8) {
+      return 'Password must be at least 8 characters';
+    }
+
+    if (!RegExp(r'[A-Z]').hasMatch(password)) {
+      return 'Password must contain at least 1 uppercase letter';
+    }
+
+    if (!RegExp(r'[a-z]').hasMatch(password)) {
+      return 'Password must contain at least 1 lowercase letter';
+    }
+
+    if (!RegExp(r'[0-9]').hasMatch(password)) {
+      return 'Password must contain at least 1 number';
+    }
+
+    if (!RegExp(r'[!@#$%^&*(),.?":{}|<>_\-\\/\[\]=+`~]').hasMatch(password)) {
+      return 'Password must contain at least 1 special character';
+    }
+
+    return null; // ✅ valid password
   }
 
-  void onGoogleSignUp() {
-    // TODO: handle Google sign-up
+  String? validateConfirmPassword(String? value) {
+    final password = value ?? '';
+
+    if (password.isEmpty) {
+      return 'Password is required';
+    }
+
+    if (password.length < 8) {
+      return 'Password must be at least 8 characters';
+    }
+
+    if (!RegExp(r'[A-Z]').hasMatch(password)) {
+      return 'Password must contain at least 1 uppercase letter';
+    }
+
+    if (!RegExp(r'[a-z]').hasMatch(password)) {
+      return 'Password must contain at least 1 lowercase letter';
+    }
+
+    if (!RegExp(r'[0-9]').hasMatch(password)) {
+      return 'Password must contain at least 1 number';
+    }
+
+    if (!RegExp(r'[!@#$%^&*(),.?":{}|<>_\-\\/\[\]=+`~]').hasMatch(password)) {
+      return 'Password must contain at least 1 special character';
+    }
+
+    return null; // ✅ valid password
   }
 
-  void onAppleSignUp() {
-    // TODO: handle Apple sign-up
+  // ---------------- EMAIL SIGN UP ----------------
+  Future<void> onCreateAccount() async {
+    if (!formKey.currentState!.validate()) return;
+
+    setBusy(true);
+    try {
+      final user = await authservice.signUpWithEmail(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+
+      await userservice.createUser(
+        uid: user.uid,
+        name: fullNameController.text.trim(),
+        email: user.email!,
+      );
+
+      navigationService.replaceWith(Routes.navbarView);
+    } on FirebaseAuthException catch (e) {
+      dialogService.showDialog(
+        title: 'Sign up failed',
+        description: _mapAuthError(e),
+      );
+    } finally {
+      setBusy(false);
+    }
   }
 
+  // ---------------- GOOGLE SIGN UP ----------------
+  Future<void> onGoogleSignUp() async {
+    setBusy(true);
+    try {
+      final user = await authservice.signInWithGoogle();
+
+      final exists = await userservice.userExists(user.uid);
+      if (!exists) {
+        await userservice.createUser(
+          uid: user.uid,
+          name: user.displayName ?? 'User',
+          email: user.email!,
+        );
+      }
+
+      navigationService.replaceWith(Routes.navbarView);
+    } catch (e) {
+      dialogService.showDialog(
+        title: 'Google Sign-In failed',
+        description: e.toString(),
+      );
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  String _mapAuthError(FirebaseAuthException e) {
+    switch (e.code) {
+      case 'email-already-in-use':
+        return 'Email already registered. Please login.';
+      case 'weak-password':
+        return 'Password is too weak.';
+      case 'invalid-email':
+        return 'Invalid email address.';
+      default:
+        return 'Sign up failed.';
+    }
+  }
+
+  // ---------------- NAVIGATION ----------------
   void onLoginTap() {
-    // TODO: navigate to Login screen
     navigationService.replaceWith(Routes.loginView);
   }
 

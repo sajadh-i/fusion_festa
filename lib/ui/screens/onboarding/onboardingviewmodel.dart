@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fusion_festa/app/app.router.dart';
 import 'package:fusion_festa/app/utils.dart';
@@ -38,16 +39,21 @@ class Onboardingviewmodel extends BaseViewModel {
       currentIndex++;
       notifyListeners();
     } else {
-      _goToLogin();
+      _finishOnboarding();
     }
   }
 
   void onSkip() {
-    _goToLogin();
+    _finishOnboarding();
   }
 
-  void _goToLogin() {
-    // TODO: use your navigationService & route
-    navigationService.replaceWith(Routes.loginView);
+  void _finishOnboarding() {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      navigationService.replaceWith(Routes.navbarView);
+    } else {
+      navigationService.replaceWith(Routes.loginView);
+    }
   }
 }

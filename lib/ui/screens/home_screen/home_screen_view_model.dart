@@ -1,3 +1,6 @@
+import 'package:flutter/widgets.dart';
+import 'package:fusion_festa/app/app.router.dart';
+import 'package:fusion_festa/app/utils.dart';
 import 'package:stacked/stacked.dart';
 
 class HomeScreenViewModel extends BaseViewModel {
@@ -21,6 +24,6 @@ class HomeScreenViewModel extends BaseViewModel {
   }
 
   void onGetStarted() {
-    // your existing navigation
+    navigationService.navigateTo(Routes.addEventView);
   }
 }
