@@ -58,6 +58,10 @@ class $AssetsFontsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/fusionmap.jpg
+  AssetGenImage get fusionmap =>
+      const AssetGenImage('assets/images/fusionmap.jpg');
+
   /// File path: assets/images/homescreenimage.jpg
   AssetGenImage get homescreenimage =>
       const AssetGenImage('assets/images/homescreenimage.jpg');
@@ -94,6 +98,7 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
+    fusionmap,
     homescreenimage,
     loginimage,
     logo5,

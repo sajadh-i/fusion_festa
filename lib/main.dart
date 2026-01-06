@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
+import 'package:fusion_festa/app/utils.dart';
 import 'package:fusion_festa/firebase_options.dart';
+import 'package:fusion_festa/services/local_notification_service.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:fusion_festa/ui/tools/screen_size.dart';
 import 'package:fusion_festa/app/app.locator.dart';
@@ -15,6 +17,8 @@ import 'package:fusion_festa/constants/app_strings.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  //await localnotificationservice.init();
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   SystemChrome.setPreferredOrientations([

@@ -14,6 +14,7 @@ class SplashViewModel extends BaseViewModel {
   void init(TickerProvider vsync) {
     _setupAnimations(vsync);
     controller.forward();
+    //await localnotificationservice.init();
     _navigateNext();
   }
 

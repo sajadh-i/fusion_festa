@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fusion_festa/models/eventlist.dart';
 import 'package:fusion_festa/ui/screens/event_screen/event_screen_view_model.dart';
 import 'package:stacked/stacked.dart';
 
@@ -85,7 +86,12 @@ class EventScreenView extends StatelessWidget {
                                   offset: viewModel.listVisible
                                       ? Offset.zero
                                       : const Offset(0, 0.1),
-                                  child: _EventCard(event: event),
+                                  child: _EventCard(
+                                    event: event,
+                                    onTap: () {
+                                      viewModel.onevettap(event.id);
+                                    },
+                                  ),
                                 );
                               },
                             ),
@@ -152,7 +158,7 @@ class _FilterRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final filters = ['All', 'Dance', 'Music', 'Festivals'];
+    final filters = ['All', 'Dance', 'Music', 'Festivals', 'Ritual'];
 
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -187,147 +193,155 @@ class _FilterRow extends StatelessWidget {
 }
 
 class _EventCard extends StatelessWidget {
-  final EventItem event;
-  const _EventCard({required this.event});
+  final EventListModel event;
+  final Function()? onTap;
+  const _EventCard({required this.event, this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 16),
-      decoration: BoxDecoration(
-        color: const Color(0xFF181012),
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.6),
-            blurRadius: 10,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Image with error handling
-          ClipRRect(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-            child: Image.network(
-              event.imagePath,
-              height: 190,
-              width: double.infinity,
-              fit: BoxFit.cover,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return Container(
-                  height: 190,
-                  color: const Color(0xFF2E2221),
-                  child: const Center(
-                    child: CircularProgressIndicator(color: Color(0xFFFF8A3D)),
-                  ),
-                );
-              },
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  height: 190,
-                  color: const Color(0xFF2E2221),
-                  child: const Center(
-                    child: Icon(
-                      Icons.image_not_supported,
-                      color: Color(0xFFB7A9A6),
-                      size: 40,
-                    ),
-                  ),
-                );
-              },
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 16),
+        decoration: BoxDecoration(
+          color: const Color(0xFF181012),
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.6),
+              blurRadius: 10,
+              offset: const Offset(0, 6),
             ),
-          ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Image with error handling
+            ClipRRect(
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(20),
+              ),
+              child: Image.network(
+                event.imageUrl,
+                height: 270,
+                width: double.infinity,
+                fit: BoxFit.fill,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Container(
+                    height: 190,
+                    color: const Color(0xFF2E2221),
+                    child: const Center(
+                      child: CircularProgressIndicator(
+                        color: Color(0xFFFF8A3D),
+                      ),
+                    ),
+                  );
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    height: 190,
+                    color: const Color(0xFF2E2221),
+                    child: const Center(
+                      child: Icon(
+                        Icons.image_not_supported,
+                        color: Color(0xFFB7A9A6),
+                        size: 40,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
 
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Title + tag
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Text(
-                        event.title,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Title + tag
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          event.title,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color(0x33FF8A3D),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Text(
-                        event.category,
-                        style: const TextStyle(
-                          color: Color(0xFFFF8A3D),
-                          fontSize: 11,
-                          fontWeight: FontWeight.w500,
+                      const SizedBox(width: 8),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 10,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: const Color(0x33FF8A3D),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          event.category,
+                          style: const TextStyle(
+                            color: Color(0xFFFF8A3D),
+                            fontSize: 11,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
 
-                const SizedBox(height: 8),
+                  const SizedBox(height: 8),
 
-                // Date
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.calendar_today_outlined,
-                      color: Color(0xFFB7A9A6),
-                      size: 14,
-                    ),
-                    const SizedBox(width: 6),
-                    Text(
-                      event.dateText,
-                      style: const TextStyle(
+                  // Date
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.calendar_today_outlined,
                         color: Color(0xFFB7A9A6),
-                        fontSize: 12,
+                        size: 14,
                       ),
-                    ),
-                  ],
-                ),
+                      const SizedBox(width: 6),
+                      Text(
+                        '${event.startAt.day}/${event.startAt.month}/${event.startAt.year}',
+                        style: const TextStyle(
+                          color: Color(0xFFB7A9A6),
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
 
-                const SizedBox(height: 4),
+                  const SizedBox(height: 4),
 
-                // Location
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.location_on_outlined,
-                      color: Color(0xFFB7A9A6),
-                      size: 14,
-                    ),
-                    const SizedBox(width: 6),
-                    Text(
-                      event.location,
-                      style: const TextStyle(
+                  // Location
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.location_on_outlined,
                         color: Color(0xFFB7A9A6),
-                        fontSize: 12,
+                        size: 14,
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                      const SizedBox(width: 6),
+                      Text(
+                        event.venue,
+                        style: const TextStyle(
+                          color: Color(0xFFB7A9A6),
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

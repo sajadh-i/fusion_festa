@@ -147,7 +147,7 @@ class AddEventView extends StatelessWidget {
                     SizedBox(height: 8 * h),
                     _FusionTextField(
                       readonly: true,
-                      controller: vm.descriptionController,
+
                       hint: vm.organizerName.isNotEmpty
                           ? vm.organizerName
                           : "User",
@@ -155,7 +155,7 @@ class AddEventView extends StatelessWidget {
                     SizedBox(height: 8 * h),
                     _FusionTextField(
                       readonly: true,
-                      controller: vm.descriptionController,
+
                       hint: vm.organizerId.isNotEmpty
                           ? "UID : ${vm.organizerId} "
                           : "UID",
@@ -353,6 +353,7 @@ class AddEventView extends StatelessWidget {
                     SizedBox(height: 8 * h),
 
                     // Dynamic tiers
+                    // inside Column -> Ticket Pricing section, replace the tiers Column with this
                     Column(
                       children: [
                         for (int i = 0; i < vm.tiers.length; i++) ...[
@@ -382,6 +383,17 @@ class AddEventView extends StatelessWidget {
                                         decimal: true,
                                       ),
                                   validator: vm.validateTierPrice,
+                                ),
+                              ),
+                              SizedBox(width: 12 * w),
+                              Expanded(
+                                flex: 2,
+                                child: _FusionTextField(
+                                  controller:
+                                      vm.tiers[i].seatsController, // NEW
+                                  hint: 'Seats',
+                                  keyboardType: TextInputType.number,
+                                  validator: vm.validateTierSeats, // NEW
                                 ),
                               ),
                               if (vm.tiers.length > 1)
@@ -496,7 +508,7 @@ class _SectionLabel extends StatelessWidget {
 }
 
 class _FusionTextField extends StatelessWidget {
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String hint;
   final String? Function(String?)? validator;
   final int maxLines;
@@ -505,13 +517,13 @@ class _FusionTextField extends StatelessWidget {
   final bool readonly;
 
   const _FusionTextField({
-    required this.controller,
     required this.hint,
     this.validator,
     this.maxLines = 1,
     this.keyboardType,
     this.enable = true,
     this.readonly = false,
+    this.controller,
   });
 
   @override
