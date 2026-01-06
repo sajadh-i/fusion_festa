@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fusion_festa/app/app.router.dart';
 import 'package:fusion_festa/app/utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
 
 class ProfileViewModel extends BaseViewModel {
@@ -18,9 +19,12 @@ class ProfileViewModel extends BaseViewModel {
   //LOAD USER DATA
   StreamSubscription<DocumentSnapshot>? _profileSub;
 
-  void loadprofile() {
+  Future<void> loadprofile() async {
     final user = FirebaseAuth.instance.currentUser!;
     userEmail = user.email ?? '';
+
+    final pref = await SharedPreferences.getInstance();
+    notificationsEnabled = pref.getBool('notifications_enabled') ?? true;
 
     _profileSub = FirebaseFirestore.instance
         .collection('users')
@@ -43,14 +47,27 @@ class ProfileViewModel extends BaseViewModel {
     navigationService.navigateTo(Routes.editProfileView);
   }
 
-  void onMyEventsTap() {}
+  void onMyEventsTap() {
+    navigationService.navigateTo(Routes.myEventView);
+  }
+
   void onPaymentMethodsTap() {}
   void onSecurityTap() {
     navigationService.navigateTo(Routes.passwordSecurityView);
   }
 
-  void onNotificationsChanged(bool value) {
+  Future<void> onNotificationsChanged(bool value) async {
+    final prefs = await SharedPreferences.getInstance();
     notificationsEnabled = value;
+    await prefs.setBool('notifications_enabled', value);
+
+    if (value) {
+      await localnotificationservice.init();
+      await localnotificationservice.show(
+        title: 'Notification Enabled',
+        body: 'You will now recieve update',
+      );
+    }
     notifyListeners();
   }
 
@@ -76,16 +93,33 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   Future<void> onDeleteAccountTap() async {
+    final confirm = await dialogService.showConfirmationDialog(
+      title: 'Delete Account?',
+      description:
+          'This will permanently delete your account and all events you created.',
+      confirmationTitle: 'Delete',
+      cancelTitle: 'Cancel',
+    );
+
+    if (confirm?.confirmed != true) return;
+
     setBusy(true);
+
     try {
-      //Delete Firestore user data
+      final user = FirebaseAuth.instance.currentUser!;
+      final uid = user.uid;
+
+      //Delete all events created by this user
+      await eventservice.deleteEventsByUser(uid);
+
+      //Delete Firestore user document
       await userservice.deleteUserData();
 
-      //Delete Auth user
+      //Delete Firebase Auth account
       await authservice.deleteAuthAccount();
 
       //Navigate to login
-      navigationService.replaceWith(Routes.loginView);
+      navigationService.clearStackAndShow(Routes.loginView);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'requires-recent-login') {
         dialogService.showDialog(
@@ -98,6 +132,11 @@ class ProfileViewModel extends BaseViewModel {
           description: 'Unable to delete account. Try again.',
         );
       }
+    } catch (e) {
+      dialogService.showDialog(
+        title: 'Error',
+        description: 'Something went wrong. Please try again.',
+      );
     } finally {
       setBusy(false);
     }
