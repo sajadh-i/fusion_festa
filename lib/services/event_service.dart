@@ -30,6 +30,7 @@ class EventService {
       'startAt': Timestamp.fromDate(startAt),
       'endAt': Timestamp.fromDate(endAt),
       'tickets': tickets,
+      'status': 'pending',
       'createdAt': FieldValue.serverTimestamp(),
     });
   }
@@ -46,10 +47,15 @@ class EventService {
       .collection('events')
       .orderBy('startAt');
 
-  Stream<List<EventListModel>> streamAllEvents() {
-    return _eventsRef.snapshots().map((snapshot) {
-      return snapshot.docs.map((doc) => EventListModel.fromDoc(doc)).toList();
-    });
+  Stream<List<EventListModel>> streamAllEvent() {
+    return _event
+        .where('status', isEqualTo: 'approved')
+        .orderBy('startAt')
+        .snapshots()
+        .map(
+          (snapshot) =>
+              snapshot.docs.map((e) => EventListModel.fromDoc(e)).toList(),
+        );
   }
 
   Future<EventDetailsModel> getEventById(String eventId) async {

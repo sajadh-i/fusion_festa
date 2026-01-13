@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fusion_festa/ui/screens/Navbar/navbar_view_model.dart';
-import 'package:fusion_festa/ui/screens/bookingdetails/booking_details_view.dart';
+import 'package:fusion_festa/ui/screens/AI_chat/ai_chat_view.dart';
 
 import 'package:fusion_festa/ui/screens/event_screen/event_screen_view.dart';
 import 'package:fusion_festa/ui/screens/home_screen/home_screen_view.dart';
@@ -23,10 +23,10 @@ class NavbarView extends StatelessWidget {
             onGoToEvents: () {
               viewModel.onTabChange(1);
             },
-          ), // main discovery / dashboard
-          EventScreenView(), // event listing screen you built
-          BookingDetailsView(), // event booking / tickets
-          ProfileView(), // user profile
+          ),
+          EventScreenView(),
+          AiChatView(),
+          ProfileView(),
         ];
 
         return Scaffold(
@@ -59,10 +59,10 @@ class NavbarView extends StatelessWidget {
               hoverColor: const Color(0x33FFFFFF),
               duration: const Duration(milliseconds: 250),
               curve: Curves.easeOutCubic,
-              tabs: const [
+              tabs: [
                 GButton(icon: Icons.home_filled, text: 'Home'),
                 GButton(icon: Icons.event_rounded, text: 'Events'),
-                GButton(icon: Icons.confirmation_num_rounded, text: 'Bookings'),
+                GButton(icon: Icons.memory, text: 'Fusion AI'),
                 GButton(icon: Icons.person_rounded, text: 'Profile'),
               ],
             ),

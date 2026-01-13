@@ -40,7 +40,7 @@ class EventScreenViewModel extends BaseViewModel {
   }
 
   void init() {
-    _subscription = eventservice.streamAllEvents().listen((data) {
+    _subscription = eventservice.streamAllEvent().listen((data) {
       _allEvents = data;
       notifyListeners();
     });

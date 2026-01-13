@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fusion_festa/app/utils.dart';
 import 'package:stacked/stacked.dart';
@@ -20,9 +21,35 @@ class ForPassViewModel extends BaseViewModel {
     navigationService.back();
   }
 
-  void onSendResetLink() {
+  void onSendResetLink() async {
     if (formKey.currentState?.validate() != true) return;
-    // TODO: call API to send reset link, show success message / navigate
+
+    setBusy(true);
+
+    try {
+      await authservice.sendPasswordResetEmail(emailController.text.trim());
+
+      dialogService.showDialog(
+        title: 'Reset Link Sent',
+        description:
+            'A password reset link has been sent to your email. Please check your inbox.',
+      );
+
+      // go back to login after success
+      navigationService.replaceWith(Routes.loginView);
+    } on FirebaseAuthException catch (e) {
+      dialogService.showDialog(
+        title: 'Error',
+        description: e.message ?? 'Failed to send reset link',
+      );
+    } catch (_) {
+      dialogService.showDialog(
+        title: 'Error',
+        description: 'Something went wrong. Try again.',
+      );
+    } finally {
+      setBusy(false);
+    }
   }
 
   @override

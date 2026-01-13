@@ -143,7 +143,9 @@ class ForPassView extends StatelessWidget {
                       width: double.infinity,
                       height: 56,
                       child: ElevatedButton(
-                        onPressed: viewModel.onSendResetLink,
+                        onPressed: viewModel.isBusy
+                            ? null
+                            : viewModel.onSendResetLink,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFFFF8A3D),
                           shape: RoundedRectangleBorder(

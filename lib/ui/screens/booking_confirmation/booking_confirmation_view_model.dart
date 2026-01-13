@@ -30,6 +30,14 @@ class BookingConfirmationViewModel extends BaseViewModel {
     required this.bookedTickets,
   });
 
+  Future<void> init() async {
+    await localnotificationservice.init();
+    await localnotificationservice.show(
+      title: 'Booking Confirmed 🎉',
+      body: 'Your ticket for "$eventTitle" is confirmed.',
+    );
+  }
+
   Future<void> downloadTicket() async {
     setBusy(true);
 

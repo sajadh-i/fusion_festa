@@ -14,6 +14,7 @@ class UserService {
       'name': name,
       'email': email,
       'phone': '',
+      'role': 'user',
       'profileImage': '',
       'createdAt': FieldValue.serverTimestamp(),
     }, SetOptions(merge: true));
@@ -30,6 +31,12 @@ class UserService {
     final uid = FirebaseAuth.instance.currentUser!.uid;
     final doc = await _users.doc(uid).get();
     return doc.data()!;
+  }
+
+  Future<String> getUserRole(String uid) async {
+    final doc = await _users.doc(uid).get();
+    if (!doc.exists) return 'user';
+    return doc.data()?['role'] ?? 'user';
   }
 
   //UPDATING THE EXISTING USER DATA

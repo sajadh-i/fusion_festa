@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:fusion_festa/app/utils.dart';
@@ -18,6 +19,7 @@ import 'package:fusion_festa/constants/app_strings.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //await localnotificationservice.init();
+  await dotenv.load(fileName: ".env");
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 

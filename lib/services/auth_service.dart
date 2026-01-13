@@ -61,4 +61,9 @@ class AuthService {
       await user.delete(); // may require recent login
     }
   }
+
+  //CHANGE PASSWORD THROUGH EMAIL
+  Future<void> sendPasswordResetEmail(String email) async {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  }
 }

@@ -1,14 +1,17 @@
 import 'package:fusion_festa/services/Ticket_pdf_service.dart';
+import 'package:fusion_festa/services/admin_service.dart';
 import 'package:fusion_festa/services/auth_service.dart';
 import 'package:fusion_festa/services/booking_service.dart';
 import 'package:fusion_festa/services/cloudinary_service.dart';
 import 'package:fusion_festa/services/event_service.dart';
+import 'package:fusion_festa/services/home_service.dart';
 import 'package:fusion_festa/services/local_notification_service.dart';
 import 'package:fusion_festa/services/security_prefes.dart';
 import 'package:fusion_festa/ui/screens/Navbar/navbar_view.dart';
 import 'package:fusion_festa/ui/screens/add_event/add_event_view.dart';
+import 'package:fusion_festa/ui/screens/admin_screen/admin_view.dart';
 import 'package:fusion_festa/ui/screens/booking_confirmation/booking_confirmation_view.dart';
-import 'package:fusion_festa/ui/screens/bookingdetails/booking_details_view.dart';
+import 'package:fusion_festa/ui/screens/AI_chat/ai_chat_view.dart';
 import 'package:fusion_festa/ui/screens/edit_profile/edit_profile_view.dart';
 import 'package:fusion_festa/ui/screens/event_details/eventdetails_view.dart';
 import 'package:fusion_festa/ui/screens/event_screen/event_screen_view.dart';
@@ -42,7 +45,6 @@ import '../services/user_service.dart';
     MaterialRoute(page: EventScreenView),
     MaterialRoute(page: NavbarView),
     MaterialRoute(page: ProfileView),
-    MaterialRoute(page: BookingDetailsView),
     MaterialRoute(page: SettingView),
     MaterialRoute(page: AddEventView),
     MaterialRoute(page: EditProfileView),
@@ -52,6 +54,8 @@ import '../services/user_service.dart';
     MaterialRoute(page: MyEventView),
     MaterialRoute(page: TicketselectionView),
     MaterialRoute(page: BookingConfirmationView),
+    MaterialRoute(page: AdminView),
+    MaterialRoute(page: AiChatView),
   ],
   dependencies: [
     LazySingleton(classType: ApiService),
@@ -66,6 +70,8 @@ import '../services/user_service.dart';
     LazySingleton(classType: BookingService),
     LazySingleton(classType: TicketPdfService),
     LazySingleton(classType: LocalNotificationService),
+    LazySingleton(classType: AdminService),
+    LazySingleton(classType: HomeService),
   ],
 )
 class AppSetUp {}

@@ -1,29 +1,60 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fusion_festa/app/app.router.dart';
 import 'package:fusion_festa/app/utils.dart';
 import 'package:stacked/stacked.dart';
 
 class HomeScreenViewModel extends BaseViewModel {
-  bool showHeroText = false; // controls animation
+  List<QueryDocumentSnapshot> events = [];
+  List<QueryDocumentSnapshot> reviews = [];
+
+  TextEditingController reviewcontroller = TextEditingController();
+
+  StreamSubscription? _eventSub;
+  StreamSubscription? _reviewSub;
 
   void initialise() {
-    // call this from onModelReady in the View
-    Future.delayed(const Duration(milliseconds: 200), () {
-      showHeroText = true;
+    _eventSub = homeservice.approvedEvents().listen((snapshot) {
+      events = snapshot.docs;
+      notifyListeners();
+    });
+
+    _reviewSub = homeservice.liveReviews().listen((snapshot) {
+      reviews = snapshot.docs;
       notifyListeners();
     });
   }
 
-  void hideHeroText() {
-    showHeroText = false;
-    notifyListeners();
+  Future<void> submitReview() async {
+    final text = reviewcontroller.text.trim();
+    if (text.isEmpty) return;
+
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+
+    final userDoc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .get();
+
+    final userName = userDoc.data()?['name'] ?? 'User';
+
+    await homeservice.addReview(userName, text);
+
+    reviewcontroller.clear();
   }
 
-  void tapsetteing() {
-    // settings navigation
-  }
-
-  void onGetStarted() {
+  void addevent() {
     navigationService.navigateTo(Routes.addEventView);
+  }
+
+  @override
+  void dispose() {
+    _eventSub?.cancel();
+    _reviewSub?.cancel();
+    reviewcontroller.dispose();
+    super.dispose();
   }
 }

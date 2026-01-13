@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:fusion_festa/app/app.router.dart';
 import 'package:fusion_festa/app/utils.dart';
 import 'package:fusion_festa/models/eventdetails.dart';
@@ -79,7 +80,7 @@ class TicketselectionViewModel extends BaseViewModel {
     if (!canProceed) return;
 
     var options = {
-      'key': 'rzp_live_ILgsfZCZoFIKMb',
+      'key': dotenv.env['RAZOR_PAY'],
       'amount': paymentAmount * 100, // ₹1  paise
       'currency': 'INR',
       'name': 'Fusion Festa',

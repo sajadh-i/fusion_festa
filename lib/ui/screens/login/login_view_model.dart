@@ -58,22 +58,18 @@ class LoginViewModel extends BaseViewModel {
       return 'Password must contain at least 1 special character';
     }
 
-    return null; // ✅ valid password
+    return null; //valid password
   }
 
-  // ================= EMAIL LOGIN =================
   Future<void> onLogin() async {
     if (isBusy) return;
     if (formKey.currentState?.validate() != true) return;
 
-    final email = emailController.text.trim();
-    final password = passwordController.text.trim();
-
     setBusy(true);
     try {
       final user = await authservice.loginWithEmail(
-        email: email,
-        password: password,
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
       );
 
       final exists = await userservice.userExists(user.uid);
@@ -81,14 +77,22 @@ class LoginViewModel extends BaseViewModel {
         await userservice.createUser(
           uid: user.uid,
           name: user.displayName ?? 'User',
-          email: user.email ?? email,
+          email: user.email ?? emailController.text.trim(),
         );
       }
 
-      navigationService.replaceWith(Routes.navbarView);
+      //GET ROLE
+      final role = await userservice.getUserRole(user.uid);
+
+      //ROLE-BASED NAVIGATION
+      if (role == 'admin') {
+        navigationService.clearStackAndShow(Routes.adminView);
+      } else {
+        navigationService.clearStackAndShow(Routes.navbarView);
+      }
     } on FirebaseAuthException catch (e) {
       _handleAuthError(e);
-    } catch (_) {
+    } catch (e) {
       dialogService.showDialog(
         title: 'Login failed',
         description: 'Something went wrong. Please try again.',
@@ -98,7 +102,6 @@ class LoginViewModel extends BaseViewModel {
     }
   }
 
-  // ================= GOOGLE LOGIN =================
   Future<void> onGoogleLogin() async {
     if (isBusy) return;
 
@@ -115,11 +118,17 @@ class LoginViewModel extends BaseViewModel {
         );
       }
 
-      navigationService.replaceWith(Routes.navbarView);
+      final role = await userservice.getUserRole(user.uid);
+
+      if (role == 'admin') {
+        navigationService.clearStackAndShow(Routes.adminView);
+      } else {
+        navigationService.clearStackAndShow(Routes.navbarView);
+      }
     } catch (_) {
       dialogService.showDialog(
         title: 'Google login failed',
-        description: 'Unable to login with Google. Try again.',
+        description: 'Unable to login with Google.',
       );
     } finally {
       setBusy(false);

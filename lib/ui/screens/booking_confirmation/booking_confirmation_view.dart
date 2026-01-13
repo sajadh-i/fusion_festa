@@ -40,6 +40,7 @@ class BookingConfirmationView extends StatelessWidget {
         userId: userId,
         bookedTickets: bookedTickets,
       ),
+      onViewModelReady: (viewModel) => viewModel.init(),
       builder: (context, vm, child) {
         return Scaffold(
           backgroundColor: const Color(0xFF0D0606),

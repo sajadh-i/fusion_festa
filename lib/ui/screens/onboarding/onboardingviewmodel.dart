@@ -4,6 +4,7 @@ import 'package:fusion_festa/app/app.router.dart';
 import 'package:fusion_festa/app/utils.dart';
 import 'package:fusion_festa/constants/assets.gen.dart';
 import 'package:fusion_festa/models/onboardingitems.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
 
 class Onboardingviewmodel extends BaseViewModel {
@@ -34,6 +35,16 @@ class Onboardingviewmodel extends BaseViewModel {
 
   bool get isLastPage => currentIndex == items.length - 1;
 
+  Future<void> init() async {
+    final prefs = await SharedPreferences.getInstance();
+    final done = prefs.getBool('onboarding_done') ?? false;
+
+    // If already seen onboarding → skip UI
+    if (done) {
+      _navigateAfterOnboarding();
+    }
+  }
+
   void onNext() {
     if (!isLastPage) {
       currentIndex++;
@@ -47,13 +58,29 @@ class Onboardingviewmodel extends BaseViewModel {
     _finishOnboarding();
   }
 
-  void _finishOnboarding() {
+  Future<void> _finishOnboarding() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('onboarding_done', true);
+
+    _navigateAfterOnboarding();
+  }
+
+  Future<void> _navigateAfterOnboarding() async {
     final user = FirebaseAuth.instance.currentUser;
 
-    if (user != null) {
-      navigationService.replaceWith(Routes.navbarView);
-    } else {
+    if (user == null) {
+      // Not logged in
       navigationService.replaceWith(Routes.loginView);
+      return;
+    }
+
+    // Logged in → check role
+    final role = await userservice.getUserRole(user.uid);
+
+    if (role == 'admin') {
+      navigationService.replaceWith(Routes.adminView);
+    } else {
+      navigationService.replaceWith(Routes.navbarView);
     }
   }
 }

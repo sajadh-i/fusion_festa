@@ -86,7 +86,9 @@ class ProfileViewModel extends BaseViewModel {
     setBusy(true);
     try {
       await authservice.logout();
-      navigationService.replaceWith(Routes.loginView);
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove('onboarding_done');
+      navigationService.clearStackAndShow(Routes.loginView);
     } finally {
       setBusy(false);
     }
@@ -117,7 +119,9 @@ class ProfileViewModel extends BaseViewModel {
 
       //Delete Firebase Auth account
       await authservice.deleteAuthAccount();
-
+      //clear on all in shared preferences
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.clear();
       //Navigate to login
       navigationService.clearStackAndShow(Routes.loginView);
     } on FirebaseAuthException catch (e) {
