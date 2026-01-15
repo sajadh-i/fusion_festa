@@ -10,6 +10,8 @@ import 'package:stacked/stacked.dart';
 class HomeScreenViewModel extends BaseViewModel {
   List<QueryDocumentSnapshot> events = [];
   List<QueryDocumentSnapshot> reviews = [];
+  DateTime selectedDay = DateTime.now();
+  List<QueryDocumentSnapshot> selectedEvents = [];
 
   TextEditingController reviewcontroller = TextEditingController();
 
@@ -19,6 +21,7 @@ class HomeScreenViewModel extends BaseViewModel {
   void initialise() {
     _eventSub = homeservice.approvedEvents().listen((snapshot) {
       events = snapshot.docs;
+      selectDate(selectedDay);
       notifyListeners();
     });
 
@@ -44,6 +47,19 @@ class HomeScreenViewModel extends BaseViewModel {
     await homeservice.addReview(userName, text);
 
     reviewcontroller.clear();
+  }
+
+  void selectDate(DateTime day) {
+    selectedDay = day;
+
+    selectedEvents = events.where((e) {
+      final date = (e['startAt'] as Timestamp).toDate();
+      return date.year == day.year &&
+          date.month == day.month &&
+          date.day == day.day;
+    }).toList();
+
+    notifyListeners();
   }
 
   void addevent() {

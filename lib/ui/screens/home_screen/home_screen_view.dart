@@ -234,7 +234,16 @@ class HomeScreenView extends StatelessWidget {
           child: TableCalendar(
             firstDay: DateTime.utc(2020),
             lastDay: DateTime.utc(2030),
-            focusedDay: DateTime.now(),
+
+            focusedDay: viewModel.selectedDay,
+
+            selectedDayPredicate: (day) =>
+                isSameDay(day, viewModel.selectedDay),
+
+            onDaySelected: (selectedDay, focusedDay) {
+              viewModel.selectDate(selectedDay);
+            },
+
             headerStyle: const HeaderStyle(
               formatButtonVisible: false,
               titleCentered: true,
@@ -242,6 +251,7 @@ class HomeScreenView extends StatelessWidget {
               leftChevronIcon: Icon(Icons.chevron_left, color: Colors.white),
               rightChevronIcon: Icon(Icons.chevron_right, color: Colors.white),
             ),
+
             eventLoader: (day) {
               return viewModel.events.where((e) {
                 final date = (e['startAt'] as Timestamp).toDate();
@@ -250,6 +260,7 @@ class HomeScreenView extends StatelessWidget {
                     date.day == day.day;
               }).toList();
             },
+
             calendarStyle: const CalendarStyle(
               defaultTextStyle: TextStyle(color: Colors.white),
               weekendTextStyle: TextStyle(color: Colors.orange),
@@ -257,13 +268,154 @@ class HomeScreenView extends StatelessWidget {
                 color: Color(0xFFFF8A3D),
                 shape: BoxShape.circle,
               ),
+              selectedDecoration: BoxDecoration(
+                color: Color(0xFF4D9FFF),
+                shape: BoxShape.circle,
+              ),
+            ),
+
+            calendarBuilders: CalendarBuilders(
+              markerBuilder: (context, day, events) {
+                if (events.isNotEmpty) {
+                  return Positioned(
+                    bottom: 4,
+                    child: Container(
+                      width: 6,
+                      height: 6,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFFF8A3D),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  );
+                }
+                return null;
+              },
             ),
           ),
         ),
+        if (viewModel.selectedEvents.isNotEmpty) ...[
+          SizedBox(height: 12),
+          ...viewModel.selectedEvents.map((event) {
+            return Container(
+              margin: const EdgeInsets.only(bottom: 10),
+              padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(
+                color: const Color(0xFF101727),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    event['title'] ?? '',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    event['venue']['name'] ?? '',
+                    style: const TextStyle(color: Color(0xFFB7A9A6)),
+                  ),
+                ],
+              ),
+            );
+          }),
+        ],
       ],
     );
   }
 
+  // Widget _buildNearbyMap(
+  //   BuildContext context,
+  //   Size size,
+  //   HomeScreenViewModel viewModel,
+  // ) {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       Row(
+  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //         children: [
+  //           const Text(
+  //             'Nearby Events Map',
+  //             style: TextStyle(
+  //               color: Colors.white,
+  //               fontSize: 18,
+  //               fontWeight: FontWeight.w600,
+  //             ),
+  //           ),
+  //           TextButton(
+  //             onPressed: () {},
+  //             child: const Text(
+  //               'Kochi',
+  //               style: TextStyle(
+  //                 color: Color(0xFFFF8A3D),
+  //                 fontWeight: FontWeight.w500,
+  //               ),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //       SizedBox(height: size.height * 0.01),
+
+  //       Container(
+  //         height: size.height * 0.35,
+  //         decoration: BoxDecoration(
+  //           borderRadius: BorderRadius.circular(20),
+  //           color: const Color(0xFF101727),
+  //         ),
+  //         child: ClipRRect(
+  //           borderRadius: BorderRadius.circular(20),
+  //           child: FlutterMap(
+  //             options: const MapOptions(
+  //               initialCenter: LatLng(9.9312, 76.2673),
+  //               initialZoom: 12,
+  //               interactionOptions: InteractionOptions(
+  //                 flags: InteractiveFlag.all,
+  //               ),
+  //             ),
+  //             children: [
+  //               TileLayer(
+  //                 urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+  //                 userAgentPackageName: 'com.example.fusion_festa',
+  //               ),
+
+  //               MarkerLayer(
+  //                 markers: viewModel.events
+  //                     .map((doc) {
+  //                       final data = doc.data() as Map<String, dynamic>;
+  //                       final venue = data['venue'];
+
+  //                       if (venue == null ||
+  //                           venue['lat'] == null ||
+  //                           venue['lng'] == null) {
+  //                         return null;
+  //                       }
+
+  //                       return Marker(
+  //                         point: LatLng(venue['lat'], venue['lng']),
+  //                         width: 40,
+  //                         height: 40,
+  //                         child: const Icon(
+  //                           Icons.location_pin,
+  //                           color: Color(0xFFFF8A3D),
+  //                           size: 36,
+  //                         ),
+  //                       );
+  //                     })
+  //                     .whereType<Marker>()
+  //                     .toList(),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
   Widget _buildNearbyMap(
     BuildContext context,
     Size size,
@@ -272,80 +424,64 @@ class HomeScreenView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-              'Nearby Events Map',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            TextButton(
-              onPressed: () {},
-              child: const Text(
-                'Kochi',
-                style: TextStyle(
-                  color: Color(0xFFFF8A3D),
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          ],
+        const Text(
+          'Nearby Events',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         SizedBox(height: size.height * 0.01),
 
         Container(
-          height: size.height * 0.35,
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
             color: const Color(0xFF101727),
-          ),
-          child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: FlutterMap(
-              options: const MapOptions(
-                initialCenter: LatLng(9.9312, 76.2673), // Kochi
-                initialZoom: 12,
-                interactionOptions: InteractionOptions(
-                  flags: InteractiveFlag.all,
+          ),
+          child: Column(
+            children: [
+              ...viewModel.events.take(3).map((doc) {
+                final data = doc.data() as Map<String, dynamic>;
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 12),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.location_on, color: Color(0xFFFF8A3D)),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Text(
+                          data['title'] ?? 'Event',
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }),
+
+              const SizedBox(height: 10),
+
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                  onPressed: () {
+                    // Later you can open Google Maps screen
+                  },
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: Color(0xFFFF8A3D)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                  ),
+                  child: const Text(
+                    'View on Map',
+                    style: TextStyle(color: Color(0xFFFF8A3D)),
+                  ),
                 ),
               ),
-              children: [
-                TileLayer(
-                  urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                  userAgentPackageName: 'com.example.fusion_festa',
-                ),
-
-                MarkerLayer(
-                  markers: viewModel.events
-                      .map((doc) {
-                        final data = doc.data() as Map<String, dynamic>;
-                        final venue = data['venue'];
-
-                        if (venue == null ||
-                            venue['lat'] == null ||
-                            venue['lng'] == null) {
-                          return null;
-                        }
-
-                        return Marker(
-                          point: LatLng(venue['lat'], venue['lng']),
-                          width: 40,
-                          height: 40,
-                          child: const Icon(
-                            Icons.location_pin,
-                            color: Colors.red,
-                          ),
-                        );
-                      })
-                      .whereType<Marker>()
-                      .toList(),
-                ),
-              ],
-            ),
+            ],
           ),
         ),
       ],

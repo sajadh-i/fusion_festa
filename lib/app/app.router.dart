@@ -8,36 +8,37 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter/material.dart' as _i22;
 import 'package:flutter/material.dart';
-import 'package:fusion_festa/ui/screens/add_event/add_event_view.dart' as _i12;
-import 'package:fusion_festa/ui/screens/admin_screen/admin_view.dart' as _i20;
-import 'package:fusion_festa/ui/screens/AI_chat/ai_chat_view.dart' as _i21;
+import 'package:fusion_festa/ui/screens/add_event/add_event_view.dart' as _i11;
+import 'package:fusion_festa/ui/screens/admin_screen/admin_view.dart' as _i19;
+import 'package:fusion_festa/ui/screens/AI_chat/ai_chat_view.dart' as _i20;
 import 'package:fusion_festa/ui/screens/booking_confirmation/booking_confirmation_view.dart'
-    as _i19;
+    as _i18;
 import 'package:fusion_festa/ui/screens/edit_profile/edit_profile_view.dart'
-    as _i13;
+    as _i12;
 import 'package:fusion_festa/ui/screens/event_details/eventdetails_view.dart'
-    as _i16;
+    as _i15;
 import 'package:fusion_festa/ui/screens/event_screen/event_screen_view.dart'
     as _i8;
 import 'package:fusion_festa/ui/screens/forgot_password/for_pass_view.dart'
     as _i5;
 import 'package:fusion_festa/ui/screens/helpSupport/helpsupport_view.dart'
-    as _i15;
+    as _i14;
 import 'package:fusion_festa/ui/screens/home_screen/home_screen_view.dart'
     as _i7;
 import 'package:fusion_festa/ui/screens/login/login_view.dart' as _i4;
+import 'package:fusion_festa/ui/screens/My_booking/booking_det_view.dart'
+    as _i21;
 import 'package:fusion_festa/ui/screens/my_event_screen/my_event_view.dart'
-    as _i17;
+    as _i16;
 import 'package:fusion_festa/ui/screens/Navbar/navbar_view.dart' as _i9;
 import 'package:fusion_festa/ui/screens/onboarding/onboardingview.dart' as _i3;
 import 'package:fusion_festa/ui/screens/passwordsecurity/passwordsecurityview.dart'
-    as _i14;
+    as _i13;
 import 'package:fusion_festa/ui/screens/profile/profile_view.dart' as _i10;
-import 'package:fusion_festa/ui/screens/settings/setting_view.dart' as _i11;
 import 'package:fusion_festa/ui/screens/sign_up/sign_up_view.dart' as _i6;
 import 'package:fusion_festa/ui/screens/splash/splashview.dart' as _i2;
 import 'package:fusion_festa/ui/screens/ticketselectionScreen/ticketselection_view.dart'
-    as _i18;
+    as _i17;
 import 'package:stacked/stacked.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i23;
 
@@ -60,8 +61,6 @@ class Routes {
 
   static const profileView = '/profile-view';
 
-  static const settingView = '/setting-view';
-
   static const addEventView = '/add-event-view';
 
   static const editProfileView = '/edit-profile-view';
@@ -82,6 +81,8 @@ class Routes {
 
   static const aiChatView = '/ai-chat-view';
 
+  static const bookingDetView = '/booking-det-view';
+
   static const all = <String>{
     splashview,
     onboardingview,
@@ -92,7 +93,6 @@ class Routes {
     eventScreenView,
     navbarView,
     profileView,
-    settingView,
     addEventView,
     editProfileView,
     passwordSecurityView,
@@ -103,6 +103,7 @@ class Routes {
     bookingConfirmationView,
     adminView,
     aiChatView,
+    bookingDetView,
   };
 }
 
@@ -117,20 +118,20 @@ class StackedRouter extends _i1.RouterBase {
     _i1.RouteDef(Routes.eventScreenView, page: _i8.EventScreenView),
     _i1.RouteDef(Routes.navbarView, page: _i9.NavbarView),
     _i1.RouteDef(Routes.profileView, page: _i10.ProfileView),
-    _i1.RouteDef(Routes.settingView, page: _i11.SettingView),
-    _i1.RouteDef(Routes.addEventView, page: _i12.AddEventView),
-    _i1.RouteDef(Routes.editProfileView, page: _i13.EditProfileView),
-    _i1.RouteDef(Routes.passwordSecurityView, page: _i14.PasswordSecurityView),
-    _i1.RouteDef(Routes.helpsupportView, page: _i15.HelpsupportView),
-    _i1.RouteDef(Routes.eventdetailsView, page: _i16.EventdetailsView),
-    _i1.RouteDef(Routes.myEventView, page: _i17.MyEventView),
-    _i1.RouteDef(Routes.ticketselectionView, page: _i18.TicketselectionView),
+    _i1.RouteDef(Routes.addEventView, page: _i11.AddEventView),
+    _i1.RouteDef(Routes.editProfileView, page: _i12.EditProfileView),
+    _i1.RouteDef(Routes.passwordSecurityView, page: _i13.PasswordSecurityView),
+    _i1.RouteDef(Routes.helpsupportView, page: _i14.HelpsupportView),
+    _i1.RouteDef(Routes.eventdetailsView, page: _i15.EventdetailsView),
+    _i1.RouteDef(Routes.myEventView, page: _i16.MyEventView),
+    _i1.RouteDef(Routes.ticketselectionView, page: _i17.TicketselectionView),
     _i1.RouteDef(
       Routes.bookingConfirmationView,
-      page: _i19.BookingConfirmationView,
+      page: _i18.BookingConfirmationView,
     ),
-    _i1.RouteDef(Routes.adminView, page: _i20.AdminView),
-    _i1.RouteDef(Routes.aiChatView, page: _i21.AiChatView),
+    _i1.RouteDef(Routes.adminView, page: _i19.AdminView),
+    _i1.RouteDef(Routes.aiChatView, page: _i20.AiChatView),
+    _i1.RouteDef(Routes.bookingDetView, page: _i21.BookingDetView),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -216,82 +217,73 @@ class StackedRouter extends _i1.RouterBase {
         settings: data,
       );
     },
-    _i11.SettingView: (data) {
-      final args = data.getArgs<SettingViewArguments>(
-        orElse: () => const SettingViewArguments(),
-      );
-      return _i22.MaterialPageRoute<dynamic>(
-        builder: (context) => _i11.SettingView(key: args.key),
-        settings: data,
-      );
-    },
-    _i12.AddEventView: (data) {
+    _i11.AddEventView: (data) {
       final args = data.getArgs<AddEventViewArguments>(
         orElse: () => const AddEventViewArguments(),
       );
       return _i22.MaterialPageRoute<dynamic>(
-        builder: (context) => _i12.AddEventView(key: args.key),
+        builder: (context) => _i11.AddEventView(key: args.key),
         settings: data,
       );
     },
-    _i13.EditProfileView: (data) {
+    _i12.EditProfileView: (data) {
       final args = data.getArgs<EditProfileViewArguments>(
         orElse: () => const EditProfileViewArguments(),
       );
       return _i22.MaterialPageRoute<dynamic>(
-        builder: (context) => _i13.EditProfileView(key: args.key),
+        builder: (context) => _i12.EditProfileView(key: args.key),
         settings: data,
       );
     },
-    _i14.PasswordSecurityView: (data) {
+    _i13.PasswordSecurityView: (data) {
       final args = data.getArgs<PasswordSecurityViewArguments>(
         orElse: () => const PasswordSecurityViewArguments(),
       );
       return _i22.MaterialPageRoute<dynamic>(
-        builder: (context) => _i14.PasswordSecurityView(key: args.key),
+        builder: (context) => _i13.PasswordSecurityView(key: args.key),
         settings: data,
       );
     },
-    _i15.HelpsupportView: (data) {
+    _i14.HelpsupportView: (data) {
       final args = data.getArgs<HelpsupportViewArguments>(
         orElse: () => const HelpsupportViewArguments(),
       );
       return _i22.MaterialPageRoute<dynamic>(
-        builder: (context) => _i15.HelpsupportView(key: args.key),
+        builder: (context) => _i14.HelpsupportView(key: args.key),
         settings: data,
       );
     },
-    _i16.EventdetailsView: (data) {
+    _i15.EventdetailsView: (data) {
       final args = data.getArgs<EventdetailsViewArguments>(nullOk: false);
       return _i22.MaterialPageRoute<dynamic>(
         builder: (context) =>
-            _i16.EventdetailsView(key: args.key, eventId: args.eventId),
+            _i15.EventdetailsView(key: args.key, eventId: args.eventId),
         settings: data,
       );
     },
-    _i17.MyEventView: (data) {
+    _i16.MyEventView: (data) {
       final args = data.getArgs<MyEventViewArguments>(
         orElse: () => const MyEventViewArguments(),
       );
       return _i22.MaterialPageRoute<dynamic>(
-        builder: (context) => _i17.MyEventView(key: args.key),
+        builder: (context) => _i16.MyEventView(key: args.key),
         settings: data,
       );
     },
-    _i18.TicketselectionView: (data) {
+    _i17.TicketselectionView: (data) {
       final args = data.getArgs<TicketselectionViewArguments>(nullOk: false);
       return _i22.MaterialPageRoute<dynamic>(
         builder: (context) =>
-            _i18.TicketselectionView(key: args.key, eventId: args.eventId),
+            _i17.TicketselectionView(key: args.key, eventId: args.eventId),
         settings: data,
       );
     },
-    _i19.BookingConfirmationView: (data) {
+    _i18.BookingConfirmationView: (data) {
       final args = data.getArgs<BookingConfirmationViewArguments>(
         nullOk: false,
       );
       return _i22.MaterialPageRoute<dynamic>(
-        builder: (context) => _i19.BookingConfirmationView(
+        builder: (context) => _i18.BookingConfirmationView(
           key: args.key,
           bookingId: args.bookingId,
           eventTitle: args.eventTitle,
@@ -305,21 +297,30 @@ class StackedRouter extends _i1.RouterBase {
         settings: data,
       );
     },
-    _i20.AdminView: (data) {
+    _i19.AdminView: (data) {
       final args = data.getArgs<AdminViewArguments>(
         orElse: () => const AdminViewArguments(),
       );
       return _i22.MaterialPageRoute<dynamic>(
-        builder: (context) => _i20.AdminView(key: args.key),
+        builder: (context) => _i19.AdminView(key: args.key),
         settings: data,
       );
     },
-    _i21.AiChatView: (data) {
+    _i20.AiChatView: (data) {
       final args = data.getArgs<AiChatViewArguments>(
         orElse: () => const AiChatViewArguments(),
       );
       return _i22.MaterialPageRoute<dynamic>(
-        builder: (context) => _i21.AiChatView(key: args.key),
+        builder: (context) => _i20.AiChatView(key: args.key),
+        settings: data,
+      );
+    },
+    _i21.BookingDetView: (data) {
+      final args = data.getArgs<BookingDetViewArguments>(
+        orElse: () => const BookingDetViewArguments(),
+      );
+      return _i22.MaterialPageRoute<dynamic>(
+        builder: (context) => _i21.BookingDetView(key: args.key),
         settings: data,
       );
     },
@@ -522,28 +523,6 @@ class ProfileViewArguments {
 
   @override
   bool operator ==(covariant ProfileViewArguments other) {
-    if (identical(this, other)) return true;
-    return other.key == key;
-  }
-
-  @override
-  int get hashCode {
-    return key.hashCode;
-  }
-}
-
-class SettingViewArguments {
-  const SettingViewArguments({this.key});
-
-  final _i22.Key? key;
-
-  @override
-  String toString() {
-    return '{"key": "$key"}';
-  }
-
-  @override
-  bool operator ==(covariant SettingViewArguments other) {
     if (identical(this, other)) return true;
     return other.key == key;
   }
@@ -820,6 +799,28 @@ class AiChatViewArguments {
   }
 }
 
+class BookingDetViewArguments {
+  const BookingDetViewArguments({this.key});
+
+  final _i22.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant BookingDetViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
 extension NavigatorStateExtension on _i23.NavigationService {
   Future<dynamic> navigateToSplashview({
     _i22.Key? key,
@@ -977,24 +978,6 @@ extension NavigatorStateExtension on _i23.NavigationService {
     return navigateTo<dynamic>(
       Routes.profileView,
       arguments: ProfileViewArguments(key: key),
-      id: routerId,
-      preventDuplicates: preventDuplicates,
-      parameters: parameters,
-      transition: transition,
-    );
-  }
-
-  Future<dynamic> navigateToSettingView({
-    _i22.Key? key,
-    int? routerId,
-    bool preventDuplicates = true,
-    Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-    transition,
-  }) async {
-    return navigateTo<dynamic>(
-      Routes.settingView,
-      arguments: SettingViewArguments(key: key),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
@@ -1202,6 +1185,24 @@ extension NavigatorStateExtension on _i23.NavigationService {
     );
   }
 
+  Future<dynamic> navigateToBookingDetView({
+    _i22.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return navigateTo<dynamic>(
+      Routes.bookingDetView,
+      arguments: BookingDetViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
   Future<dynamic> replaceWithSplashview({
     _i22.Key? key,
     int? routerId,
@@ -1358,24 +1359,6 @@ extension NavigatorStateExtension on _i23.NavigationService {
     return replaceWith<dynamic>(
       Routes.profileView,
       arguments: ProfileViewArguments(key: key),
-      id: routerId,
-      preventDuplicates: preventDuplicates,
-      parameters: parameters,
-      transition: transition,
-    );
-  }
-
-  Future<dynamic> replaceWithSettingView({
-    _i22.Key? key,
-    int? routerId,
-    bool preventDuplicates = true,
-    Map<String, String>? parameters,
-    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
-    transition,
-  }) async {
-    return replaceWith<dynamic>(
-      Routes.settingView,
-      arguments: SettingViewArguments(key: key),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
@@ -1576,6 +1559,24 @@ extension NavigatorStateExtension on _i23.NavigationService {
     return replaceWith<dynamic>(
       Routes.aiChatView,
       arguments: AiChatViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> replaceWithBookingDetView({
+    _i22.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return replaceWith<dynamic>(
+      Routes.bookingDetView,
+      arguments: BookingDetViewArguments(key: key),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,

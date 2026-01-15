@@ -23,7 +23,7 @@ import 'package:fusion_festa/ui/screens/my_event_screen/my_event_view.dart';
 import 'package:fusion_festa/ui/screens/onboarding/onboardingview.dart';
 import 'package:fusion_festa/ui/screens/passwordsecurity/passwordsecurityview.dart';
 import 'package:fusion_festa/ui/screens/profile/profile_view.dart';
-import 'package:fusion_festa/ui/screens/settings/setting_view.dart';
+import 'package:fusion_festa/ui/screens/My_booking/booking_det_view.dart';
 import 'package:fusion_festa/ui/screens/sign_up/sign_up_view.dart';
 import 'package:fusion_festa/ui/screens/splash/splashview.dart';
 import 'package:fusion_festa/ui/screens/ticketselectionScreen/ticketselection_view.dart';
@@ -45,7 +45,6 @@ import '../services/user_service.dart';
     MaterialRoute(page: EventScreenView),
     MaterialRoute(page: NavbarView),
     MaterialRoute(page: ProfileView),
-    MaterialRoute(page: SettingView),
     MaterialRoute(page: AddEventView),
     MaterialRoute(page: EditProfileView),
     MaterialRoute(page: PasswordSecurityView),
@@ -56,6 +55,7 @@ import '../services/user_service.dart';
     MaterialRoute(page: BookingConfirmationView),
     MaterialRoute(page: AdminView),
     MaterialRoute(page: AiChatView),
+    MaterialRoute(page: BookingDetView),
   ],
   dependencies: [
     LazySingleton(classType: ApiService),

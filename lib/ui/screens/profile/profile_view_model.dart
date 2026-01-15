@@ -51,7 +51,10 @@ class ProfileViewModel extends BaseViewModel {
     navigationService.navigateTo(Routes.myEventView);
   }
 
-  void onPaymentMethodsTap() {}
+  void onMyBookingTap() {
+    navigationService.navigateTo(Routes.bookingDetView);
+  }
+
   void onSecurityTap() {
     navigationService.navigateTo(Routes.passwordSecurityView);
   }

@@ -118,10 +118,10 @@ class ProfileView extends StatelessWidget {
                         onTap: vm.onMyEventsTap,
                       ),
                       _SettingsTile(
-                        icon: Icons.credit_card,
+                        icon: Icons.book_online,
                         iconBg: const Color(0x3332C4FF),
-                        title: 'Payment Methods',
-                        onTap: vm.onPaymentMethodsTap,
+                        title: 'My Booking',
+                        onTap: vm.onMyBookingTap,
                       ),
                       _SettingsTile(
                         icon: Icons.lock_outline_rounded,
