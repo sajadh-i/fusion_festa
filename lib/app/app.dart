@@ -12,6 +12,7 @@ import 'package:fusion_festa/ui/screens/add_event/add_event_view.dart';
 import 'package:fusion_festa/ui/screens/admin_screen/admin_view.dart';
 import 'package:fusion_festa/ui/screens/booking_confirmation/booking_confirmation_view.dart';
 import 'package:fusion_festa/ui/screens/AI_chat/ai_chat_view.dart';
+import 'package:fusion_festa/ui/screens/change_password/change_password_view.dart';
 import 'package:fusion_festa/ui/screens/edit_profile/edit_profile_view.dart';
 import 'package:fusion_festa/ui/screens/event_details/eventdetails_view.dart';
 import 'package:fusion_festa/ui/screens/event_screen/event_screen_view.dart';
@@ -31,7 +32,7 @@ import 'package:local_auth/local_auth.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-import '../services/api_services.dart';
+//import '../services/api_services.dart';
 import '../services/user_service.dart';
 
 @StackedApp(
@@ -56,9 +57,10 @@ import '../services/user_service.dart';
     MaterialRoute(page: AdminView),
     MaterialRoute(page: AiChatView),
     MaterialRoute(page: BookingDetView),
+    MaterialRoute(page: ChangePasswordView),
   ],
   dependencies: [
-    LazySingleton(classType: ApiService),
+    // LazySingleton(classType: ApiService),
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: UserService),
     LazySingleton(classType: LocalAuthentication),

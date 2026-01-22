@@ -1,6 +1,6 @@
 import 'package:fusion_festa/services/Ticket_pdf_service.dart';
 import 'package:fusion_festa/services/admin_service.dart';
-import 'package:fusion_festa/services/api_services.dart';
+//import 'package:fusion_festa/services/api_services.dart';
 import 'package:fusion_festa/services/auth_service.dart';
 import 'package:fusion_festa/services/booking_service.dart';
 import 'package:fusion_festa/services/cloudinary_service.dart';
@@ -15,7 +15,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'app.locator.dart';
 
 NavigationService get navigationService => locator<NavigationService>();
-ApiService get apiservice => locator<ApiService>();
+//ApiService get apiservice => locator<ApiService>();
 LocalAuthentication get lockauth => locator<LocalAuthentication>();
 SecurityPrefs get securitypref => locator<SecurityPrefs>();
 DialogService get dialogService => locator<DialogService>();

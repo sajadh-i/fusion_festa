@@ -39,7 +39,7 @@ class Onboardingviewmodel extends BaseViewModel {
     final prefs = await SharedPreferences.getInstance();
     final done = prefs.getBool('onboarding_done') ?? false;
 
-    // If already seen onboarding → skip UI
+    // If already seen onboarding  skip UI
     if (done) {
       _navigateAfterOnboarding();
     }
@@ -74,7 +74,7 @@ class Onboardingviewmodel extends BaseViewModel {
       return;
     }
 
-    // Logged in → check role
+    // Logged in check role
     final role = await userservice.getUserRole(user.uid);
 
     if (role == 'admin') {

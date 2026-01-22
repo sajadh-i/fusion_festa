@@ -5,7 +5,7 @@ import 'package:fusion_festa/models/eventlist.dart';
 
 class EventService {
   final _event = FirebaseFirestore.instance.collection('events');
-
+  //creating a event
   Future<void> createEvent({
     required String title,
     required String description,
@@ -35,6 +35,7 @@ class EventService {
     });
   }
 
+  //delete event by current user event
   Future<void> deleteEventsByUser(String uid) async {
     final snapshot = await _event.where('organizerId', isEqualTo: uid).get();
 
@@ -47,6 +48,7 @@ class EventService {
       .collection('events')
       .orderBy('startAt');
 
+  //list all events
   Stream<List<EventListModel>> streamAllEvent() {
     return _event
         .where('status', isEqualTo: 'approved')
@@ -80,7 +82,7 @@ class EventService {
         );
   }
 
-  /// 🔹 Delete single event
+  //Delete single event
   Future<void> deleteEvent(String eventId) async {
     await _event.doc(eventId).delete();
   }

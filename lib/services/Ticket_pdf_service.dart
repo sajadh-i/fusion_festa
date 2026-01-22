@@ -36,11 +36,11 @@ class TicketPdfService {
 
               pw.SizedBox(height: 20),
 
-              // 🔹 QR CODE IN PDF
+              //QR CODE IN PDF
               pw.Center(
                 child: pw.BarcodeWidget(
                   barcode: pw.Barcode.qrCode(),
-                  data: bookingId, // 👈 what QR contains
+                  data: bookingId, //what QR contains
                   width: 180,
                   height: 180,
                 ),

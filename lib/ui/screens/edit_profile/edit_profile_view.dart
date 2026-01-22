@@ -55,7 +55,7 @@ class EditProfileView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // Avatar + edit icon
+                    // Avatar  edit icon
                     Stack(
                       alignment: Alignment.bottomRight,
                       children: [

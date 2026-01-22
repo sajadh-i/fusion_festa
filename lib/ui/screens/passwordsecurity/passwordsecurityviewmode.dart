@@ -1,3 +1,4 @@
+import 'package:fusion_festa/app/app.router.dart';
 import 'package:fusion_festa/services/security_prefes.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +50,9 @@ class PasswordSecurityViewModel extends BaseViewModel {
     }
   }
 
-  void ontapchangepassword() {}
+  void ontapchangepassword() {
+    navigationService.navigateTo(Routes.changePasswordView);
+  }
+
   void ontaplogOutAllDevices() {}
 }

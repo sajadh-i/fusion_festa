@@ -8,7 +8,7 @@ class AiService {
     model: 'gemini-2.5-flash',
     apiKey: _apiKey,
   );
-
+  //Fusion Ai Assistant gemini Service
   Future<String> sendMessage(String message) async {
     try {
       final response = await model.generateContent([Content.text(message)]);

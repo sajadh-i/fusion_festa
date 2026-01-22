@@ -68,7 +68,6 @@ class BookingConfirmationView extends StatelessWidget {
                 children: [
                   const SizedBox(height: 20),
 
-                  /// ✅ Success Icon
                   Container(
                     height: 90,
                     width: 90,
@@ -107,7 +106,6 @@ class BookingConfirmationView extends StatelessWidget {
 
                   const SizedBox(height: 28),
 
-                  /// 🎫 QR + Booking ID
                   Container(
                     padding: const EdgeInsets.all(20),
                     decoration: _cardDecoration(),
@@ -143,7 +141,6 @@ class BookingConfirmationView extends StatelessWidget {
 
                   const SizedBox(height: 20),
 
-                  /// 📍 Event Info
                   Container(
                     padding: const EdgeInsets.all(18),
                     decoration: _cardDecoration(),
@@ -165,7 +162,6 @@ class BookingConfirmationView extends StatelessWidget {
 
                   const SizedBox(height: 24),
 
-                  /// 📥 Actions
                   Row(
                     children: [
                       Expanded(
@@ -197,7 +193,7 @@ class BookingConfirmationView extends StatelessWidget {
     );
   }
 
-  // ---------- UI helpers ----------
+  // UI helpers
 
   BoxDecoration _cardDecoration() {
     return BoxDecoration(

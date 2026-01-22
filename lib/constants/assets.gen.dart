@@ -58,6 +58,18 @@ class $AssetsFontsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/car5.jpeg
+  AssetGenImage get car5 => const AssetGenImage('assets/images/car5.jpeg');
+
+  /// File path: assets/images/car6.jpeg
+  AssetGenImage get car6 => const AssetGenImage('assets/images/car6.jpeg');
+
+  /// File path: assets/images/car7.jpeg
+  AssetGenImage get car7 => const AssetGenImage('assets/images/car7.jpeg');
+
+  /// File path: assets/images/car8.jpeg
+  AssetGenImage get car8 => const AssetGenImage('assets/images/car8.jpeg');
+
   /// File path: assets/images/fusionmap.jpg
   AssetGenImage get fusionmap =>
       const AssetGenImage('assets/images/fusionmap.jpg');
@@ -98,6 +110,10 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<AssetGenImage> get values => [
+    car5,
+    car6,
+    car7,
+    car8,
     fusionmap,
     homescreenimage,
     loginimage,

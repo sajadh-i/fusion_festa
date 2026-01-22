@@ -20,10 +20,7 @@ class AdminView extends StatelessWidget {
           appBar: AppBar(
             elevation: 0,
             backgroundColor: const Color(0xFF050814),
-            // leading: IconButton(
-            //   icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
-            //   onPressed: viewModel.onBack,
-            // ),
+
             centerTitle: true,
             title: const Text(
               'Event Approvals',

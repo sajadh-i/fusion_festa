@@ -45,13 +45,11 @@ class MyEventView extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.all(16),
-                    // Animated list of cards
+
                     child: ListView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
-                      itemCount: viewModel
-                          .events
-                          .length, // later you can bind with events length
+                      itemCount: viewModel.events.length,
                       itemBuilder: (context, index) {
                         final offset = 40.0 * (index + 1);
                         final event = viewModel.events[index];

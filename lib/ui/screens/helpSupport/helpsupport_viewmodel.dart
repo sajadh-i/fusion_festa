@@ -46,9 +46,7 @@ class HelpsupportViewmodel extends BaseViewModel {
     }
   }
 
-  Future<void> onReportProblemTap() async {
-    // optionally scroll to message form
-  }
+  Future<void> onReportProblemTap() async {}
 
   Future<void> sendSupportMessage(BuildContext context) async {
     if (subjectController.text.trim().isEmpty ||
@@ -62,7 +60,6 @@ class HelpsupportViewmodel extends BaseViewModel {
     isSending = true;
     notifyListeners();
 
-    // For now just open email composer with subject+body
     final subject = Uri.encodeComponent(subjectController.text.trim());
     final body = Uri.encodeComponent(messageController.text.trim());
     final uri = Uri.parse('mailto:$supportEmail?subject=$subject&body=$body');

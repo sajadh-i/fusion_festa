@@ -20,7 +20,7 @@ class EditProfileViewmodel extends BaseViewModel {
 
   final _imagePicker = ImagePicker();
 
-  // -------- LOAD EXISTING DATA --------
+  //LOAD EXISTING DATA
   Future<void> init() async {
     setBusy(true);
 
@@ -35,7 +35,6 @@ class EditProfileViewmodel extends BaseViewModel {
     setBusy(false);
   }
 
-  // -------- VALIDATION --------
   String? validateName(String? value) {
     if (value == null || value.trim().isEmpty) {
       return 'Name is required';
@@ -53,7 +52,6 @@ class EditProfileViewmodel extends BaseViewModel {
     return null;
   }
 
-  // -------- PICK IMAGE --------
   Future<void> onChangeAvatar() async {
     final picked = await _imagePicker.pickImage(
       source: ImageSource.gallery,
@@ -66,7 +64,6 @@ class EditProfileViewmodel extends BaseViewModel {
     notifyListeners();
   }
 
-  // -------- SAVE PROFILE --------
   Future<void> onSaveProfile(BuildContext context) async {
     if (!formKey.currentState!.validate()) return;
 
@@ -74,7 +71,6 @@ class EditProfileViewmodel extends BaseViewModel {
 
     String finalImageUrl = profileImageUrl;
 
-    // Upload only if new image selected
     if (profileImageFile != null) {
       finalImageUrl = await cloudinaryservice.uploadImage(profileImageFile!);
     }

@@ -135,7 +135,7 @@ class LoginViewModel extends BaseViewModel {
     }
   }
 
-  // ================= ERROR HANDLING =================
+  //ERROR HANDLING
   void _handleAuthError(FirebaseAuthException e) {
     String message;
     switch (e.code) {

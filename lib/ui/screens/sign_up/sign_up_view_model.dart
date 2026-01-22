@@ -18,7 +18,7 @@ class SignUpViewModel extends BaseViewModel {
   bool isPasswordObscured = true;
   bool isConfirmPasswordObscured = true;
 
-  // ---------------- TOGGLES ----------------
+  //  TOGGLES
   void togglePasswordVisibility() {
     isPasswordObscured = !isPasswordObscured;
     notifyListeners();
@@ -29,7 +29,7 @@ class SignUpViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  // ---------------- VALIDATORS ----------------
+  // VALIDATORS
   String? validateFullName(String? value) {
     final text = (value ?? '').trim();
     if (text.isEmpty) return 'Full name is required';
@@ -73,7 +73,7 @@ class SignUpViewModel extends BaseViewModel {
       return 'Password must contain at least 1 special character';
     }
 
-    return null; // ✅ valid password
+    return null;
   }
 
   String? validateConfirmPassword(String? value) {
@@ -103,10 +103,10 @@ class SignUpViewModel extends BaseViewModel {
       return 'Password must contain at least 1 special character';
     }
 
-    return null; // ✅ valid password
+    return null;
   }
 
-  // ---------------- EMAIL SIGN UP ----------------
+  //EMAIL SIGN UP
   Future<void> onCreateAccount() async {
     if (!formKey.currentState!.validate()) return;
 
@@ -134,7 +134,7 @@ class SignUpViewModel extends BaseViewModel {
     }
   }
 
-  // ---------------- GOOGLE SIGN UP ----------------
+  //GOOGLE SIGN UP
   Future<void> onGoogleSignUp() async {
     setBusy(true);
     try {
@@ -173,7 +173,7 @@ class SignUpViewModel extends BaseViewModel {
     }
   }
 
-  // ---------------- NAVIGATION ----------------
+  //NAVIGATION
   void onLoginTap() {
     navigationService.replaceWith(Routes.loginView);
   }

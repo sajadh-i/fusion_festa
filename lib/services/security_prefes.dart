@@ -1,7 +1,7 @@
-// lib/services/security_prefs.dart
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SecurityPrefs {
+  //using system local lock
   static const _systemLockKey = 'system_lock_enabled';
 
   Future<bool> getSystemLock() async {

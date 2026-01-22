@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:fusion_festa/constants/assets.gen.dart';
 import 'package:fusion_festa/gen/fonts.gen.dart';
 import 'package:fusion_festa/ui/screens/home_screen/home_screen_view_model.dart';
+import 'package:fusion_festa/ui/widgets/custom_carosel.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:stacked/stacked.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -38,12 +40,13 @@ class HomeScreenView extends StatelessWidget {
                     _buildCreateButton(context, size, viewModel),
 
                     SizedBox(height: size.height * 0.02),
-
+                    FusionCarousel(images: viewModel.carouselImages),
+                    SizedBox(height: size.height * 0.02),
                     // Nearby Events Map
                     _buildFestivalCalendar(size, viewModel),
 
                     SizedBox(height: size.height * 0.025),
-                    // _buildFestivalCalendar(size, viewModel),
+
                     _buildNearbyMap(context, size, viewModel),
 
                     SizedBox(height: size.height * 0.025),
@@ -51,7 +54,6 @@ class HomeScreenView extends StatelessWidget {
                     // Fusion Feed
                     _buildFusionFeed(context, size, viewModel),
 
-                    // SizedBox(height: size.height * 0.02),
                     SizedBox(height: size.height * 0.025),
 
                     _buildThoughtWall(size, viewModel),
@@ -124,13 +126,16 @@ class HomeScreenView extends StatelessWidget {
           ),
           child: Row(
             children: [
+              IconButton(
+                icon: const Icon(Icons.image, color: Color(0xFFFF8A3D)),
+                onPressed: vm.pickImage,
+              ),
               Expanded(
                 child: TextField(
                   controller: vm.reviewcontroller,
                   style: const TextStyle(color: Colors.white),
                   decoration: const InputDecoration(
                     hintText: 'Share your experience...',
-                    hintStyle: TextStyle(color: Color(0xFFB7A9A6)),
                     border: InputBorder.none,
                   ),
                 ),
@@ -146,23 +151,25 @@ class HomeScreenView extends StatelessWidget {
         const SizedBox(height: 12),
 
         ...vm.reviews.map((doc) {
-          return _buildThoughtCard(
-            name: doc.data().toString().contains('userName')
-                ? doc['userName']
-                : 'User',
-            message: doc.data().toString().contains('message')
-                ? doc['message']
-                : '',
-          );
+          return _buildThoughtCard(doc: doc, vm: vm);
         }).toList(),
       ],
     );
   }
 
-  Widget _buildThoughtCard({required String name, required String message}) {
+  Widget _buildThoughtCard({
+    required QueryDocumentSnapshot doc,
+    required HomeScreenViewModel vm,
+  }) {
+    final data = doc.data() as Map<String, dynamic>;
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+
+    final likedBy = List<String>.from(data['likedBy'] ?? []);
+    final isLiked = likedBy.contains(uid);
+
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.only(bottom: 14),
+      padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: const Color(0xFF101727),
         borderRadius: BorderRadius.circular(18),
@@ -170,15 +177,58 @@ class HomeScreenView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            name,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
+          // Header
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                data['userName'],
+                style: const TextStyle(color: Colors.white),
+              ),
+              PopupMenuButton(
+                icon: const Icon(Icons.more_vert, color: Colors.white),
+                itemBuilder: (_) => [
+                  const PopupMenuItem(value: 'delete', child: Text("Delete")),
+                ],
+                onSelected: (_) => vm.deleteReview(doc.id),
+              ),
+            ],
           ),
-          const SizedBox(height: 6),
-          Text(message, style: const TextStyle(color: Color(0xFFB7A9A6))),
+
+          const SizedBox(height: 8),
+
+          if ((data['text'] ?? '').isNotEmpty)
+            Text(
+              data['text'],
+              style: const TextStyle(color: Color(0xFFB7A9A6)),
+            ),
+
+          if (data['imageUrl'] != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(14),
+                child: Image.network(data['imageUrl']),
+              ),
+            ),
+
+          const SizedBox(height: 10),
+
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(
+                  isLiked ? Icons.favorite : Icons.favorite_border,
+                  color: isLiked ? Colors.red : Colors.white,
+                ),
+                onPressed: () => vm.toggleLike(doc.id, isLiked),
+              ),
+              Text(
+                '${data['likeCount'] ?? 0}',
+                style: const TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -328,94 +378,6 @@ class HomeScreenView extends StatelessWidget {
     );
   }
 
-  // Widget _buildNearbyMap(
-  //   BuildContext context,
-  //   Size size,
-  //   HomeScreenViewModel viewModel,
-  // ) {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       Row(
-  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //         children: [
-  //           const Text(
-  //             'Nearby Events Map',
-  //             style: TextStyle(
-  //               color: Colors.white,
-  //               fontSize: 18,
-  //               fontWeight: FontWeight.w600,
-  //             ),
-  //           ),
-  //           TextButton(
-  //             onPressed: () {},
-  //             child: const Text(
-  //               'Kochi',
-  //               style: TextStyle(
-  //                 color: Color(0xFFFF8A3D),
-  //                 fontWeight: FontWeight.w500,
-  //               ),
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //       SizedBox(height: size.height * 0.01),
-
-  //       Container(
-  //         height: size.height * 0.35,
-  //         decoration: BoxDecoration(
-  //           borderRadius: BorderRadius.circular(20),
-  //           color: const Color(0xFF101727),
-  //         ),
-  //         child: ClipRRect(
-  //           borderRadius: BorderRadius.circular(20),
-  //           child: FlutterMap(
-  //             options: const MapOptions(
-  //               initialCenter: LatLng(9.9312, 76.2673),
-  //               initialZoom: 12,
-  //               interactionOptions: InteractionOptions(
-  //                 flags: InteractiveFlag.all,
-  //               ),
-  //             ),
-  //             children: [
-  //               TileLayer(
-  //                 urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-  //                 userAgentPackageName: 'com.example.fusion_festa',
-  //               ),
-
-  //               MarkerLayer(
-  //                 markers: viewModel.events
-  //                     .map((doc) {
-  //                       final data = doc.data() as Map<String, dynamic>;
-  //                       final venue = data['venue'];
-
-  //                       if (venue == null ||
-  //                           venue['lat'] == null ||
-  //                           venue['lng'] == null) {
-  //                         return null;
-  //                       }
-
-  //                       return Marker(
-  //                         point: LatLng(venue['lat'], venue['lng']),
-  //                         width: 40,
-  //                         height: 40,
-  //                         child: const Icon(
-  //                           Icons.location_pin,
-  //                           color: Color(0xFFFF8A3D),
-  //                           size: 36,
-  //                         ),
-  //                       );
-  //                     })
-  //                     .whereType<Marker>()
-  //                     .toList(),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
   Widget _buildNearbyMap(
     BuildContext context,
     Size size,
@@ -608,25 +570,6 @@ class HomeScreenView extends StatelessWidget {
               ),
             ),
           ),
-          // Positioned(
-          //   top: 12,
-          //   right: 12,
-          //   child: GestureDetector(
-          //     onTap: () {}, // viewModel.toggleLike
-          //     child: Container(
-          //       padding: const EdgeInsets.all(8),
-          //       decoration: BoxDecoration(
-          //         color: Colors.black.withOpacity(0.6),
-          //         shape: BoxShape.circle,
-          //       ),
-          //       child: Icon(
-          //         liked ? Icons.favorite : Icons.favorite_border,
-          //         color: liked ? Colors.red : Colors.white,
-          //         size: 20,
-          //       ),
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );

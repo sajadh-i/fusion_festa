@@ -37,7 +37,7 @@ class EventdetailsView extends StatelessWidget {
                 Expanded(
                   child: CustomScrollView(
                     slivers: [
-                      /// 🔹 APP BAR WITH IMAGE
+                      //APP BAR WITH IMAGE
                       SliverAppBar(
                         backgroundColor: const Color(0xFF050304),
                         elevation: 0,
@@ -78,7 +78,7 @@ class EventdetailsView extends StatelessWidget {
                         ),
                       ),
 
-                      /// 🔹 CONTENT
+                      //CONTENT
                       SliverToBoxAdapter(
                         child: Padding(
                           padding: EdgeInsets.symmetric(
@@ -129,7 +129,7 @@ class EventdetailsView extends StatelessWidget {
 
                               SizedBox(height: 36 * h),
 
-                              /// 🔹 TABS
+                              //TABS
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
@@ -149,7 +149,7 @@ class EventdetailsView extends StatelessWidget {
 
                               SizedBox(height: 16 * h),
 
-                              /// 🔹 TAB CONTENT
+                              ///TAB CONTENT
                               AnimatedOpacity(
                                 opacity: vm.contentVisible ? 1 : 0,
                                 duration: const Duration(milliseconds: 250),
@@ -274,7 +274,7 @@ class EventdetailsView extends StatelessWidget {
     }
   }
 
-  /// 🔹 SHIMMER UI
+  /// SHIMMER UI
   Widget _buildShimmer(BuildContext context) {
     Widget box({double h = 16, double w = double.infinity}) => Container(
       height: h,
@@ -300,16 +300,16 @@ class EventdetailsView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 box(h: 22, w: 200),
-                const SizedBox(height: 24),
+                SizedBox(height: 24),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: List.generate(4, (_) => box(h: 46, w: 46)),
                 ),
-                const SizedBox(height: 24),
+                SizedBox(height: 24),
                 box(),
-                const SizedBox(height: 10),
+                SizedBox(height: 10),
                 box(),
-                const SizedBox(height: 10),
+                SizedBox(height: 10),
                 box(w: 180),
               ],
             ),
@@ -320,7 +320,7 @@ class EventdetailsView extends StatelessWidget {
   }
 }
 
-/// 🔹 MAP SECTION
+///MAP SECTION
 class _MapSection extends StatelessWidget {
   final EventdetailsViewModel vm;
   const _MapSection({required this.vm});
@@ -332,13 +332,13 @@ class _MapSection extends StatelessWidget {
       children: [
         Text(
           "Location In Map",
-          style: const TextStyle(
+          style: TextStyle(
             color: Colors.white,
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 12),
         GestureDetector(
           onTap: vm.openMap,
           child: Container(
@@ -358,12 +358,12 @@ class _MapSection extends StatelessWidget {
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
                   colors: [
-                    const Color(0xFF050304).withOpacity(0.8),
+                    Color(0xFF050304).withOpacity(0.8),
                     Colors.transparent,
                   ],
                 ),
               ),
-              child: const Padding(
+              child: Padding(
                 padding: EdgeInsets.all(12),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -385,7 +385,7 @@ class _MapSection extends StatelessWidget {
   }
 }
 
-/// 🔹 INFO CHIP
+/// INFO CHIP
 class _InfoChip extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -399,23 +399,23 @@ class _InfoChip extends StatelessWidget {
           width: 46,
           height: 46,
           decoration: BoxDecoration(
-            color: const Color(0xFF181012),
+            color: Color(0xFF181012),
             borderRadius: BorderRadius.circular(16),
           ),
-          child: Icon(icon, color: const Color(0xFFFF8A3D)),
+          child: Icon(icon, color: Color(0xFFFF8A3D)),
         ),
-        const SizedBox(height: 6),
+        SizedBox(height: 6),
         Text(
           label,
           textAlign: TextAlign.center,
-          style: const TextStyle(color: Color(0xFFE6D7D0), fontSize: 11),
+          style: TextStyle(color: Color(0xFFE6D7D0), fontSize: 11),
         ),
       ],
     );
   }
 }
 
-/// 🔹 TAB BUTTON
+/// TAB BUTTON
 class _TabButton extends StatelessWidget {
   final String title;
   final bool isSelected;
@@ -437,16 +437,16 @@ class _TabButton extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-              color: isSelected ? const Color(0xFFFF8A3D) : Colors.grey,
+              color: isSelected ? Color(0xFFFF8A3D) : Colors.grey,
               fontWeight: FontWeight.w600,
             ),
           ),
-          const SizedBox(height: 4),
+          SizedBox(height: 4),
           AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
+            duration: Duration(milliseconds: 200),
             height: 2,
             width: isSelected ? 40 : 0,
-            color: const Color(0xFFFF8A3D),
+            color: Color(0xFFFF8A3D),
           ),
         ],
       ),

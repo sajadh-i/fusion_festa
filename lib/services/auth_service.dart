@@ -5,7 +5,7 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  // ================= EMAIL SIGN UP =================
+  //Using Email and Password SignUP
   Future<User> signUpWithEmail({
     required String email,
     required String password,
@@ -17,7 +17,7 @@ class AuthService {
     return result.user!;
   }
 
-  // ================= EMAIL LOGIN =================
+  //Using Email and Password Login
   Future<User> loginWithEmail({
     required String email,
     required String password,
@@ -29,7 +29,7 @@ class AuthService {
     return result.user!;
   }
 
-  // ================= GOOGLE LOGIN / SIGNUP =================
+  //USING GOOGLE LOGIN / SIGNUP
   Future<User> signInWithGoogle() async {
     final googleUser = await _googleSignIn.signIn();
     if (googleUser == null) {
@@ -58,7 +58,7 @@ class AuthService {
   Future<void> deleteAuthAccount() async {
     final user = _auth.currentUser;
     if (user != null) {
-      await user.delete(); // may require recent login
+      await user.delete();
     }
   }
 

@@ -18,7 +18,6 @@ class _SplashviewState extends State<Splashview>
     return ViewModelBuilder<SplashViewModel>.reactive(
       viewModelBuilder: () => SplashViewModel(),
 
-      // Here we pass `this` (TickerProvider) to the ViewModel
       onViewModelReady: (model) {
         model.init(this);
       },

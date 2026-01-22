@@ -47,20 +47,20 @@ class AdminViewModel extends BaseViewModel {
   Future<void> adminLogout() async {
     setBusy(true);
     try {
-      ///1. Firebase logout (email / google)
+      //admin logout
       await authservice.logout();
 
-      /// 2. Clear admin-specific local state
+      // Clear admin-specific local state
       final prefs = await SharedPreferences.getInstance();
 
-      /// If admin logs out → onboarding can be shown again (OPTIONAL)
-      /// Useful when same device switches between admin & user
+      // If admin logs out  onboarding can be shown again
+      // Useful when same device switches between admin & user
       await prefs.setBool('onboarding_done', false);
 
       /// Clear notification preferences if admin-only
       await prefs.remove('notifications_enabled');
 
-      ///3. Navigate to Login & clear stack
+      // Navigate to Login & clear stack
       navigationService.clearStackAndShow(Routes.loginView);
     } catch (e) {
       dialogService.showDialog(

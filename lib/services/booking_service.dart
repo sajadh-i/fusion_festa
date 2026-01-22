@@ -5,7 +5,7 @@ import 'package:fusion_festa/models/eventdetails.dart';
 class BookingService {
   final _db = FirebaseFirestore.instance;
 
-  //Create booking + update sold seats (transaction safe)
+  //Create booking
   Future<String> createBooking({
     required EventDetailsModel event,
     required Map<String, int> selectedQty,
@@ -17,7 +17,7 @@ class BookingService {
     final bookingRef = _db.collection('bookings').doc();
     final eventRef = _db.collection('events').doc(event.id);
 
-    //Human-readable booking id
+    //readable booking id
     final bookingId =
         'FF-${DateTime.now().year}-${bookingRef.id.substring(0, 6).toUpperCase()}';
 
@@ -28,7 +28,7 @@ class BookingService {
       final data = eventSnap.data()!;
       final List tickets = List.from(data['tickets']);
 
-      // ✅ Update sold seats safely
+      //Update sold seats safely
       for (int i = 0; i < tickets.length; i++) {
         final tierId = tickets[i]['id'];
         final qty = selectedQty[tierId] ?? 0;

@@ -11,7 +11,7 @@
 
 
     <application
-        android:label="fusion_festa"
+        android:label="@string/app_name"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">

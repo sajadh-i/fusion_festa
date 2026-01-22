@@ -58,7 +58,7 @@ class EventScreenViewModel extends BaseViewModel {
     );
   }
 
-  // 🔍 ONLY this updates search
+  //ONLY this updates search
   void onSearchChanged(String query) {
     searchQuery = query;
     notifyListeners();

@@ -236,7 +236,7 @@ class _AnimatedSlideFade extends StatelessWidget {
   }
 }
 
-/// date card (dark theme)
+/// date card
 class _DateCard extends StatelessWidget {
   final Size size;
   final TicketselectionViewModel vm;

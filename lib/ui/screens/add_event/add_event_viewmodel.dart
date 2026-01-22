@@ -114,7 +114,7 @@ class AddEventViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  // ------------ Image tap animation ------------
+  //Image tap animation
   void onImageTapDown() {
     imageScale = 0.97;
     notifyListeners();
@@ -171,7 +171,7 @@ class AddEventViewModel extends BaseViewModel {
     return '${input.substring(0, max - ext.length - 3)}...$ext';
   }
 
-  // ------------ Start Date & Time pickers ------------
+  //Start Date & Time pickers
   Future<void> pickStartDate(BuildContext context) async {
     startDateError = null;
     final now = DateTime.now();
@@ -233,7 +233,7 @@ class AddEventViewModel extends BaseViewModel {
     }
   }
 
-  // ------------ End Date & Time pickers ------------
+  // End Date & Time pickers
   Future<void> pickEndDate(BuildContext context) async {
     endDateError = null;
     final minDate = selectedStartDate ?? DateTime.now();
@@ -435,7 +435,7 @@ class AddEventViewModel extends BaseViewModel {
     return true;
   }
 
-  // ------------ Tier actions ------------
+  //Tier actions
   void addTier() {
     tiers.add(
       TicketTier(
@@ -458,7 +458,7 @@ class AddEventViewModel extends BaseViewModel {
 
   void onAddAnotherTier() => addTier();
 
-  // ------------ convert ticket tier into List<Map> ------------
+  //convert ticket tier into List<Map>
   List<Map<String, dynamic>> _buildTicketList() {
     return tiers.map((t) {
       final name = t.nameController.text.trim().toLowerCase();
@@ -473,7 +473,7 @@ class AddEventViewModel extends BaseViewModel {
     }).toList();
   }
 
-  // ------------ Submit ------------
+  //Submit
   Future<void> onCreateEvent(BuildContext context) async {
     autoValidate = true;
     notifyListeners();

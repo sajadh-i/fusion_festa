@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AdminService {
   final _events = FirebaseFirestore.instance.collection('events');
-
+  //Get All Event for admin Approval
   Stream<QuerySnapshot> allEventsStream() {
     return _events.orderBy('createdAt', descending: true).snapshots();
   }

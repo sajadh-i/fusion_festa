@@ -335,7 +335,6 @@ class SignUpView extends StatelessWidget {
 
                             const SizedBox(height: 16),
 
-                            // Terms text (optional)
                             const Center(
                               child: Text(
                                 'By creating an account, you agree to our Terms of\nService and Privacy Policy.',

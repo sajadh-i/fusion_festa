@@ -14,7 +14,6 @@ import 'package:stacked_shared/stacked_shared.dart';
 
 import '../services/Ticket_pdf_service.dart';
 import '../services/admin_service.dart';
-import '../services/api_services.dart';
 import '../services/auth_service.dart';
 import '../services/booking_service.dart';
 import '../services/cloudinary_service.dart';
@@ -37,7 +36,6 @@ Future<void> setupLocator({
   );
 
   // Register dependencies
-  locator.registerLazySingleton(() => ApiService());
   locator.registerLazySingleton(() => NavigationService());
   locator.registerLazySingleton(() => UserService());
   locator.registerLazySingleton(() => LocalAuthentication());

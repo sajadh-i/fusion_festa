@@ -6,13 +6,15 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i22;
+import 'package:flutter/material.dart' as _i23;
 import 'package:flutter/material.dart';
 import 'package:fusion_festa/ui/screens/add_event/add_event_view.dart' as _i11;
 import 'package:fusion_festa/ui/screens/admin_screen/admin_view.dart' as _i19;
 import 'package:fusion_festa/ui/screens/AI_chat/ai_chat_view.dart' as _i20;
 import 'package:fusion_festa/ui/screens/booking_confirmation/booking_confirmation_view.dart'
     as _i18;
+import 'package:fusion_festa/ui/screens/change_password/change_password_view.dart'
+    as _i22;
 import 'package:fusion_festa/ui/screens/edit_profile/edit_profile_view.dart'
     as _i12;
 import 'package:fusion_festa/ui/screens/event_details/eventdetails_view.dart'
@@ -40,7 +42,7 @@ import 'package:fusion_festa/ui/screens/splash/splashview.dart' as _i2;
 import 'package:fusion_festa/ui/screens/ticketselectionScreen/ticketselection_view.dart'
     as _i17;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i23;
+import 'package:stacked_services/stacked_services.dart' as _i24;
 
 class Routes {
   static const splashview = '/';
@@ -83,6 +85,8 @@ class Routes {
 
   static const bookingDetView = '/booking-det-view';
 
+  static const changePasswordView = '/change-password-view';
+
   static const all = <String>{
     splashview,
     onboardingview,
@@ -104,6 +108,7 @@ class Routes {
     adminView,
     aiChatView,
     bookingDetView,
+    changePasswordView,
   };
 }
 
@@ -132,6 +137,7 @@ class StackedRouter extends _i1.RouterBase {
     _i1.RouteDef(Routes.adminView, page: _i19.AdminView),
     _i1.RouteDef(Routes.aiChatView, page: _i20.AiChatView),
     _i1.RouteDef(Routes.bookingDetView, page: _i21.BookingDetView),
+    _i1.RouteDef(Routes.changePasswordView, page: _i22.ChangePasswordView),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -139,7 +145,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<SplashviewArguments>(
         orElse: () => const SplashviewArguments(),
       );
-      return _i22.MaterialPageRoute<dynamic>(
+      return _i23.MaterialPageRoute<dynamic>(
         builder: (context) => _i2.Splashview(key: args.key),
         settings: data,
       );
@@ -148,7 +154,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<OnboardingviewArguments>(
         orElse: () => const OnboardingviewArguments(),
       );
-      return _i22.MaterialPageRoute<dynamic>(
+      return _i23.MaterialPageRoute<dynamic>(
         builder: (context) => _i3.Onboardingview(key: args.key),
         settings: data,
       );
@@ -157,7 +163,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<LoginViewArguments>(
         orElse: () => const LoginViewArguments(),
       );
-      return _i22.MaterialPageRoute<dynamic>(
+      return _i23.MaterialPageRoute<dynamic>(
         builder: (context) => _i4.LoginView(key: args.key),
         settings: data,
       );
@@ -166,7 +172,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<ForPassViewArguments>(
         orElse: () => const ForPassViewArguments(),
       );
-      return _i22.MaterialPageRoute<dynamic>(
+      return _i23.MaterialPageRoute<dynamic>(
         builder: (context) => _i5.ForPassView(key: args.key),
         settings: data,
       );
@@ -175,7 +181,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<SignUpViewArguments>(
         orElse: () => const SignUpViewArguments(),
       );
-      return _i22.MaterialPageRoute<dynamic>(
+      return _i23.MaterialPageRoute<dynamic>(
         builder: (context) => _i6.SignUpView(key: args.key),
         settings: data,
       );
@@ -184,7 +190,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<HomeScreenViewArguments>(
         orElse: () => const HomeScreenViewArguments(),
       );
-      return _i22.MaterialPageRoute<dynamic>(
+      return _i23.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i7.HomeScreenView(key: args.key, onGoToEvents: args.onGoToEvents),
         settings: data,
@@ -194,7 +200,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<EventScreenViewArguments>(
         orElse: () => const EventScreenViewArguments(),
       );
-      return _i22.MaterialPageRoute<dynamic>(
+      return _i23.MaterialPageRoute<dynamic>(
         builder: (context) => _i8.EventScreenView(key: args.key),
         settings: data,
       );
@@ -203,7 +209,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<NavbarViewArguments>(
         orElse: () => const NavbarViewArguments(),
       );
-      return _i22.MaterialPageRoute<dynamic>(
+      return _i23.MaterialPageRoute<dynamic>(
         builder: (context) => _i9.NavbarView(key: args.key),
         settings: data,
       );
@@ -212,7 +218,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<ProfileViewArguments>(
         orElse: () => const ProfileViewArguments(),
       );
-      return _i22.MaterialPageRoute<dynamic>(
+      return _i23.MaterialPageRoute<dynamic>(
         builder: (context) => _i10.ProfileView(key: args.key),
         settings: data,
       );
@@ -221,7 +227,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<AddEventViewArguments>(
         orElse: () => const AddEventViewArguments(),
       );
-      return _i22.MaterialPageRoute<dynamic>(
+      return _i23.MaterialPageRoute<dynamic>(
         builder: (context) => _i11.AddEventView(key: args.key),
         settings: data,
       );
@@ -230,7 +236,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<EditProfileViewArguments>(
         orElse: () => const EditProfileViewArguments(),
       );
-      return _i22.MaterialPageRoute<dynamic>(
+      return _i23.MaterialPageRoute<dynamic>(
         builder: (context) => _i12.EditProfileView(key: args.key),
         settings: data,
       );
@@ -239,7 +245,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<PasswordSecurityViewArguments>(
         orElse: () => const PasswordSecurityViewArguments(),
       );
-      return _i22.MaterialPageRoute<dynamic>(
+      return _i23.MaterialPageRoute<dynamic>(
         builder: (context) => _i13.PasswordSecurityView(key: args.key),
         settings: data,
       );
@@ -248,14 +254,14 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<HelpsupportViewArguments>(
         orElse: () => const HelpsupportViewArguments(),
       );
-      return _i22.MaterialPageRoute<dynamic>(
+      return _i23.MaterialPageRoute<dynamic>(
         builder: (context) => _i14.HelpsupportView(key: args.key),
         settings: data,
       );
     },
     _i15.EventdetailsView: (data) {
       final args = data.getArgs<EventdetailsViewArguments>(nullOk: false);
-      return _i22.MaterialPageRoute<dynamic>(
+      return _i23.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i15.EventdetailsView(key: args.key, eventId: args.eventId),
         settings: data,
@@ -265,14 +271,14 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<MyEventViewArguments>(
         orElse: () => const MyEventViewArguments(),
       );
-      return _i22.MaterialPageRoute<dynamic>(
+      return _i23.MaterialPageRoute<dynamic>(
         builder: (context) => _i16.MyEventView(key: args.key),
         settings: data,
       );
     },
     _i17.TicketselectionView: (data) {
       final args = data.getArgs<TicketselectionViewArguments>(nullOk: false);
-      return _i22.MaterialPageRoute<dynamic>(
+      return _i23.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i17.TicketselectionView(key: args.key, eventId: args.eventId),
         settings: data,
@@ -282,7 +288,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<BookingConfirmationViewArguments>(
         nullOk: false,
       );
-      return _i22.MaterialPageRoute<dynamic>(
+      return _i23.MaterialPageRoute<dynamic>(
         builder: (context) => _i18.BookingConfirmationView(
           key: args.key,
           bookingId: args.bookingId,
@@ -301,7 +307,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<AdminViewArguments>(
         orElse: () => const AdminViewArguments(),
       );
-      return _i22.MaterialPageRoute<dynamic>(
+      return _i23.MaterialPageRoute<dynamic>(
         builder: (context) => _i19.AdminView(key: args.key),
         settings: data,
       );
@@ -310,7 +316,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<AiChatViewArguments>(
         orElse: () => const AiChatViewArguments(),
       );
-      return _i22.MaterialPageRoute<dynamic>(
+      return _i23.MaterialPageRoute<dynamic>(
         builder: (context) => _i20.AiChatView(key: args.key),
         settings: data,
       );
@@ -319,8 +325,17 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<BookingDetViewArguments>(
         orElse: () => const BookingDetViewArguments(),
       );
-      return _i22.MaterialPageRoute<dynamic>(
+      return _i23.MaterialPageRoute<dynamic>(
         builder: (context) => _i21.BookingDetView(key: args.key),
+        settings: data,
+      );
+    },
+    _i22.ChangePasswordView: (data) {
+      final args = data.getArgs<ChangePasswordViewArguments>(
+        orElse: () => const ChangePasswordViewArguments(),
+      );
+      return _i23.MaterialPageRoute<dynamic>(
+        builder: (context) => _i22.ChangePasswordView(key: args.key),
         settings: data,
       );
     },
@@ -336,7 +351,7 @@ class StackedRouter extends _i1.RouterBase {
 class SplashviewArguments {
   const SplashviewArguments({this.key});
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
   @override
   String toString() {
@@ -358,7 +373,7 @@ class SplashviewArguments {
 class OnboardingviewArguments {
   const OnboardingviewArguments({this.key});
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
   @override
   String toString() {
@@ -380,7 +395,7 @@ class OnboardingviewArguments {
 class LoginViewArguments {
   const LoginViewArguments({this.key});
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
   @override
   String toString() {
@@ -402,7 +417,7 @@ class LoginViewArguments {
 class ForPassViewArguments {
   const ForPassViewArguments({this.key});
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
   @override
   String toString() {
@@ -424,7 +439,7 @@ class ForPassViewArguments {
 class SignUpViewArguments {
   const SignUpViewArguments({this.key});
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
   @override
   String toString() {
@@ -446,7 +461,7 @@ class SignUpViewArguments {
 class HomeScreenViewArguments {
   const HomeScreenViewArguments({this.key, this.onGoToEvents});
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
   final void Function()? onGoToEvents;
 
@@ -470,7 +485,7 @@ class HomeScreenViewArguments {
 class EventScreenViewArguments {
   const EventScreenViewArguments({this.key});
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
   @override
   String toString() {
@@ -492,7 +507,7 @@ class EventScreenViewArguments {
 class NavbarViewArguments {
   const NavbarViewArguments({this.key});
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
   @override
   String toString() {
@@ -514,7 +529,7 @@ class NavbarViewArguments {
 class ProfileViewArguments {
   const ProfileViewArguments({this.key});
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
   @override
   String toString() {
@@ -536,7 +551,7 @@ class ProfileViewArguments {
 class AddEventViewArguments {
   const AddEventViewArguments({this.key});
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
   @override
   String toString() {
@@ -558,7 +573,7 @@ class AddEventViewArguments {
 class EditProfileViewArguments {
   const EditProfileViewArguments({this.key});
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
   @override
   String toString() {
@@ -580,7 +595,7 @@ class EditProfileViewArguments {
 class PasswordSecurityViewArguments {
   const PasswordSecurityViewArguments({this.key});
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
   @override
   String toString() {
@@ -602,7 +617,7 @@ class PasswordSecurityViewArguments {
 class HelpsupportViewArguments {
   const HelpsupportViewArguments({this.key});
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
   @override
   String toString() {
@@ -624,7 +639,7 @@ class HelpsupportViewArguments {
 class EventdetailsViewArguments {
   const EventdetailsViewArguments({this.key, required this.eventId});
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
   final String eventId;
 
@@ -648,7 +663,7 @@ class EventdetailsViewArguments {
 class MyEventViewArguments {
   const MyEventViewArguments({this.key});
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
   @override
   String toString() {
@@ -670,7 +685,7 @@ class MyEventViewArguments {
 class TicketselectionViewArguments {
   const TicketselectionViewArguments({this.key, required this.eventId});
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
   final String eventId;
 
@@ -704,7 +719,7 @@ class BookingConfirmationViewArguments {
     required this.bookedTickets,
   });
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
   final String bookingId;
 
@@ -758,7 +773,7 @@ class BookingConfirmationViewArguments {
 class AdminViewArguments {
   const AdminViewArguments({this.key});
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
   @override
   String toString() {
@@ -780,7 +795,7 @@ class AdminViewArguments {
 class AiChatViewArguments {
   const AiChatViewArguments({this.key});
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
   @override
   String toString() {
@@ -802,7 +817,7 @@ class AiChatViewArguments {
 class BookingDetViewArguments {
   const BookingDetViewArguments({this.key});
 
-  final _i22.Key? key;
+  final _i23.Key? key;
 
   @override
   String toString() {
@@ -821,9 +836,31 @@ class BookingDetViewArguments {
   }
 }
 
-extension NavigatorStateExtension on _i23.NavigationService {
+class ChangePasswordViewArguments {
+  const ChangePasswordViewArguments({this.key});
+
+  final _i23.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant ChangePasswordViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
+extension NavigatorStateExtension on _i24.NavigationService {
   Future<dynamic> navigateToSplashview({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -841,7 +878,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToOnboardingview({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -859,7 +896,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToLoginView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -877,7 +914,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToForPassView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -895,7 +932,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToSignUpView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -913,7 +950,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToHomeScreenView({
-    _i22.Key? key,
+    _i23.Key? key,
     void Function()? onGoToEvents,
     int? routerId,
     bool preventDuplicates = true,
@@ -932,7 +969,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToEventScreenView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -950,7 +987,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToNavbarView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -968,7 +1005,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToProfileView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -986,7 +1023,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToAddEventView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1004,7 +1041,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToEditProfileView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1022,7 +1059,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToPasswordSecurityView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1040,7 +1077,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToHelpsupportView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1058,7 +1095,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToEventdetailsView({
-    _i22.Key? key,
+    _i23.Key? key,
     required String eventId,
     int? routerId,
     bool preventDuplicates = true,
@@ -1077,7 +1114,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToMyEventView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1095,7 +1132,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToTicketselectionView({
-    _i22.Key? key,
+    _i23.Key? key,
     required String eventId,
     int? routerId,
     bool preventDuplicates = true,
@@ -1114,7 +1151,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToBookingConfirmationView({
-    _i22.Key? key,
+    _i23.Key? key,
     required String bookingId,
     required String eventTitle,
     required String venue,
@@ -1150,7 +1187,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToAdminView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1168,7 +1205,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToAiChatView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1186,7 +1223,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> navigateToBookingDetView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1203,8 +1240,26 @@ extension NavigatorStateExtension on _i23.NavigationService {
     );
   }
 
+  Future<dynamic> navigateToChangePasswordView({
+    _i23.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return navigateTo<dynamic>(
+      Routes.changePasswordView,
+      arguments: ChangePasswordViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
   Future<dynamic> replaceWithSplashview({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1222,7 +1277,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithOnboardingview({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1240,7 +1295,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithLoginView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1258,7 +1313,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithForPassView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1276,7 +1331,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithSignUpView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1294,7 +1349,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithHomeScreenView({
-    _i22.Key? key,
+    _i23.Key? key,
     void Function()? onGoToEvents,
     int? routerId,
     bool preventDuplicates = true,
@@ -1313,7 +1368,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithEventScreenView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1331,7 +1386,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithNavbarView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1349,7 +1404,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithProfileView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1367,7 +1422,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithAddEventView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1385,7 +1440,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithEditProfileView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1403,7 +1458,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithPasswordSecurityView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1421,7 +1476,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithHelpsupportView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1439,7 +1494,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithEventdetailsView({
-    _i22.Key? key,
+    _i23.Key? key,
     required String eventId,
     int? routerId,
     bool preventDuplicates = true,
@@ -1458,7 +1513,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithMyEventView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1476,7 +1531,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithTicketselectionView({
-    _i22.Key? key,
+    _i23.Key? key,
     required String eventId,
     int? routerId,
     bool preventDuplicates = true,
@@ -1495,7 +1550,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithBookingConfirmationView({
-    _i22.Key? key,
+    _i23.Key? key,
     required String bookingId,
     required String eventTitle,
     required String venue,
@@ -1531,7 +1586,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithAdminView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1549,7 +1604,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithAiChatView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1567,7 +1622,7 @@ extension NavigatorStateExtension on _i23.NavigationService {
   }
 
   Future<dynamic> replaceWithBookingDetView({
-    _i22.Key? key,
+    _i23.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -1577,6 +1632,24 @@ extension NavigatorStateExtension on _i23.NavigationService {
     return replaceWith<dynamic>(
       Routes.bookingDetView,
       arguments: BookingDetViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> replaceWithChangePasswordView({
+    _i23.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return replaceWith<dynamic>(
+      Routes.changePasswordView,
+      arguments: ChangePasswordViewArguments(key: key),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,

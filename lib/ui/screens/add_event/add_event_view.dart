@@ -1,4 +1,3 @@
-// lib/ui/screens/add_event/add_event_view.dart
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:fusion_festa/gen/fonts.gen.dart';
@@ -348,12 +347,9 @@ class AddEventView extends StatelessWidget {
 
                     SizedBox(height: 16 * h),
 
-                    // Ticket pricing
                     const _SectionLabel('Ticket Pricing'),
                     SizedBox(height: 8 * h),
 
-                    // Dynamic tiers
-                    // inside Column -> Ticket Pricing section, replace the tiers Column with this
                     Column(
                       children: [
                         for (int i = 0; i < vm.tiers.length; i++) ...[
@@ -389,11 +385,10 @@ class AddEventView extends StatelessWidget {
                               Expanded(
                                 flex: 2,
                                 child: _FusionTextField(
-                                  controller:
-                                      vm.tiers[i].seatsController, // NEW
+                                  controller: vm.tiers[i].seatsController,
                                   hint: 'Seats',
                                   keyboardType: TextInputType.number,
-                                  validator: vm.validateTierSeats, // NEW
+                                  validator: vm.validateTierSeats,
                                 ),
                               ),
                               if (vm.tiers.length > 1)
@@ -411,11 +406,10 @@ class AddEventView extends StatelessWidget {
                       ],
                     ),
 
-                    // Add another tier – simple fade animation
                     Align(
-                      alignment: Alignment.centerLeft, // or center
+                      alignment: Alignment.centerLeft,
                       child: SizedBox(
-                        width: 420, // or 0.6 * width, etc.
+                        width: 420,
                         child: AnimatedOpacity(
                           opacity: vm.showAddTier ? 1 : 0,
                           duration: const Duration(milliseconds: 300),

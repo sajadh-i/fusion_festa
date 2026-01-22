@@ -22,9 +22,9 @@ class EventScreenView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8),
 
-                  const Text(
+                  Text(
                     'Discover Kerala\'s Culture',
                     style: TextStyle(
                       color: Colors.white,
@@ -32,21 +32,21 @@ class EventScreenView extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  SizedBox(height: 12),
 
                   _SearchBar(
                     controller: viewModel.searchController,
                     onChanged: viewModel.onSearchChanged,
                   ),
 
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16),
 
                   _FilterRow(
                     selectedIndex: viewModel.selectedFilterIndex,
                     onChanged: viewModel.onFilterChanged,
                   ),
 
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16),
 
                   Expanded(
                     child: viewModel.events.isEmpty
@@ -219,9 +219,7 @@ class _EventCard extends StatelessWidget {
           children: [
             // Image with error handling
             ClipRRect(
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(20),
-              ),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
               child: Image.network(
                 event.imageUrl,
                 height: 270,
@@ -231,8 +229,8 @@ class _EventCard extends StatelessWidget {
                   if (loadingProgress == null) return child;
                   return Container(
                     height: 190,
-                    color: const Color(0xFF2E2221),
-                    child: const Center(
+                    color: Color(0xFF2E2221),
+                    child: Center(
                       child: CircularProgressIndicator(
                         color: Color(0xFFFF8A3D),
                       ),
@@ -242,8 +240,8 @@ class _EventCard extends StatelessWidget {
                 errorBuilder: (context, error, stackTrace) {
                   return Container(
                     height: 190,
-                    color: const Color(0xFF2E2221),
-                    child: const Center(
+                    color: Color(0xFF2E2221),
+                    child: Center(
                       child: Icon(
                         Icons.image_not_supported,
                         color: Color(0xFFB7A9A6),
@@ -256,37 +254,37 @@ class _EventCard extends StatelessWidget {
             ),
 
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+              padding: EdgeInsets.symmetric(horizontal: 14, vertical: 12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Title + tag
+                  // Titletag
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
                         child: Text(
                           event.title,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                       ),
-                      const SizedBox(width: 8),
+                      SizedBox(width: 8),
                       Container(
-                        padding: const EdgeInsets.symmetric(
+                        padding: EdgeInsets.symmetric(
                           horizontal: 10,
                           vertical: 4,
                         ),
                         decoration: BoxDecoration(
-                          color: const Color(0x33FF8A3D),
+                          color: Color(0x33FF8A3D),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
                           event.category,
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: Color(0xFFFF8A3D),
                             fontSize: 11,
                             fontWeight: FontWeight.w500,
@@ -296,20 +294,20 @@ class _EventCard extends StatelessWidget {
                     ],
                   ),
 
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8),
 
                   // Date
                   Row(
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.calendar_today_outlined,
                         color: Color(0xFFB7A9A6),
                         size: 14,
                       ),
-                      const SizedBox(width: 6),
+                      SizedBox(width: 6),
                       Text(
                         '${event.startAt.day}/${event.startAt.month}/${event.startAt.year}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Color(0xFFB7A9A6),
                           fontSize: 12,
                         ),
@@ -317,20 +315,20 @@ class _EventCard extends StatelessWidget {
                     ],
                   ),
 
-                  const SizedBox(height: 4),
+                  SizedBox(height: 4),
 
                   // Location
                   Row(
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.location_on_outlined,
                         color: Color(0xFFB7A9A6),
                         size: 14,
                       ),
-                      const SizedBox(width: 6),
+                      SizedBox(width: 6),
                       Text(
                         event.venue,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Color(0xFFB7A9A6),
                           fontSize: 12,
                         ),

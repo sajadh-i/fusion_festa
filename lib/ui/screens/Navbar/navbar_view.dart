@@ -17,7 +17,6 @@ class NavbarView extends StatelessWidget {
     return ViewModelBuilder<NavbarViewModel>.reactive(
       viewModelBuilder: () => NavbarViewModel(),
       builder: (context, viewModel, child) {
-        // All four main screens of Fusion Festa
         final screens = [
           HomeScreenView(
             onGoToEvents: () {
@@ -34,7 +33,7 @@ class NavbarView extends StatelessWidget {
           body: IndexedStack(index: viewModel.currentIndex, children: screens),
           bottomNavigationBar: Container(
             decoration: BoxDecoration(
-              color: const Color(0xFF141010), // nav bar background
+              color: const Color(0xFF141010),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.7),
@@ -49,13 +48,13 @@ class NavbarView extends StatelessWidget {
               onTabChange: viewModel.onTabChange,
               gap: 8,
               padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-              // Fusion Festa colors
+
               backgroundColor: const Color(0xFF141010),
-              color: const Color(0xFF9B8C88), // inactive icon/text
+              color: const Color(0xFF9B8C88),
               iconSize: 22,
-              activeColor: Colors.white, // active icon/text
-              tabBackgroundColor: const Color(0xFFFF2B2B), // red pill
-              rippleColor: const Color(0x33FF2B2B), // red ripple
+              activeColor: Colors.white,
+              tabBackgroundColor: const Color(0xFFFF2B2B),
+              rippleColor: const Color(0x33FF2B2B),
               hoverColor: const Color(0x33FFFFFF),
               duration: const Duration(milliseconds: 250),
               curve: Curves.easeOutCubic,
