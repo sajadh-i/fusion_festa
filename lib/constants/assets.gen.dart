@@ -74,9 +74,9 @@ class $AssetsImagesGen {
   AssetGenImage get fusionmap =>
       const AssetGenImage('assets/images/fusionmap.jpg');
 
-  /// File path: assets/images/homescreenimage.jpg
-  AssetGenImage get homescreenimage =>
-      const AssetGenImage('assets/images/homescreenimage.jpg');
+  /// File path: assets/images/fusionticket.jpeg
+  AssetGenImage get fusionticket =>
+      const AssetGenImage('assets/images/fusionticket.jpeg');
 
   /// File path: assets/images/loginimage.jpg
   AssetGenImage get loginimage =>
@@ -105,9 +105,6 @@ class $AssetsImagesGen {
   AssetGenImage get signupimage =>
       const AssetGenImage('assets/images/signupimage.jpg');
 
-  /// File path: assets/images/ticket.jpg
-  AssetGenImage get ticket => const AssetGenImage('assets/images/ticket.jpg');
-
   /// List of all assets
   List<AssetGenImage> get values => [
     car5,
@@ -115,7 +112,7 @@ class $AssetsImagesGen {
     car7,
     car8,
     fusionmap,
-    homescreenimage,
+    fusionticket,
     loginimage,
     logo5,
     onboard1,
@@ -123,7 +120,6 @@ class $AssetsImagesGen {
     onboard3,
     profileAvatar,
     signupimage,
-    ticket,
   ];
 }
 

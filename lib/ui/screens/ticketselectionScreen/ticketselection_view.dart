@@ -332,6 +332,7 @@ class _TicketCard extends StatelessWidget {
 
     return Container(
       width: double.infinity,
+      margin: EdgeInsets.only(bottom: 16),
       padding: EdgeInsets.all(size.width * 0.04),
       decoration: BoxDecoration(
         color: const Color(0xFF181012),

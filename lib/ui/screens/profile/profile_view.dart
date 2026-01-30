@@ -147,6 +147,13 @@ class ProfileView extends StatelessWidget {
                         value: vm.notificationsEnabled,
                         onChanged: vm.onNotificationsChanged,
                       ),
+                      _ToggleTile(
+                        icon: Icons.access_time,
+                        iconBg: const Color(0x3332C4FF),
+                        title: 'Event Reminder',
+                        value: vm.eventReminderEnabled,
+                        onChanged: vm.onEventReminderChanged,
+                      ),
                       _SettingsTile(
                         icon: Icons.language_rounded,
                         iconBg: const Color(0x334CAF50),

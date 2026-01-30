@@ -39,6 +39,21 @@ class EventScreenViewModel extends BaseViewModel {
     return filtered;
   }
 
+  bool isUpcoming(EventListModel e) {
+    return e.startAt.isAfter(DateTime.now());
+  }
+
+  bool isPast(EventListModel e) {
+    return e.startAt.isBefore(DateTime.now().subtract(const Duration(days: 1)));
+  }
+
+  bool isToday(EventListModel e) {
+    final now = DateTime.now();
+    return e.startAt.year == now.year &&
+        e.startAt.month == now.month &&
+        e.startAt.day == now.day;
+  }
+
   void init() {
     _subscription = eventservice.streamAllEvent().listen((data) {
       _allEvents = data;

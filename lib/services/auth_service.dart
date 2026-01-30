@@ -31,6 +31,8 @@ class AuthService {
 
   //USING GOOGLE LOGIN / SIGNUP
   Future<User> signInWithGoogle() async {
+    await _googleSignIn.signOut();
+
     final googleUser = await _googleSignIn.signIn();
     if (googleUser == null) {
       throw Exception('Google sign-in cancelled');

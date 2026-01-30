@@ -42,6 +42,18 @@ class HomeService {
     await _db.collection('reviews').doc(reviewId).delete();
   }
 
+  //delete all reviews of user at account deletion
+  Future<void> deleteReviewsByUser(String uid) async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('reviews')
+        .where('userId', isEqualTo: uid)
+        .get();
+
+    for (final doc in snapshot.docs) {
+      await doc.reference.delete();
+    }
+  }
+
   //review like
   Future<void> toggleLike(String reviewId, String uid, bool isLiked) async {
     final ref = _db.collection('reviews').doc(reviewId);

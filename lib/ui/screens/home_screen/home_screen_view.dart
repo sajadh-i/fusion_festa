@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
+
 import 'package:fusion_festa/constants/assets.gen.dart';
 import 'package:fusion_festa/gen/fonts.gen.dart';
 import 'package:fusion_festa/ui/screens/home_screen/home_screen_view_model.dart';
 import 'package:fusion_festa/ui/widgets/custom_carosel.dart';
-import 'package:latlong2/latlong.dart';
+
 import 'package:stacked/stacked.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -47,9 +47,9 @@ class HomeScreenView extends StatelessWidget {
 
                     SizedBox(height: size.height * 0.025),
 
-                    _buildNearbyMap(context, size, viewModel),
+                    // _buildNearbyMap(context, size, viewModel),
 
-                    SizedBox(height: size.height * 0.025),
+                    // SizedBox(height: size.height * 0.025),
 
                     // Fusion Feed
                     _buildFusionFeed(context, size, viewModel),
@@ -378,77 +378,77 @@ class HomeScreenView extends StatelessWidget {
     );
   }
 
-  Widget _buildNearbyMap(
-    BuildContext context,
-    Size size,
-    HomeScreenViewModel viewModel,
-  ) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Nearby Events',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        SizedBox(height: size.height * 0.01),
+  // Widget _buildNearbyMap(
+  //   BuildContext context,
+  //   Size size,
+  //   HomeScreenViewModel viewModel,
+  // ) {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       const Text(
+  //         'Nearby Events',
+  //         style: TextStyle(
+  //           color: Colors.white,
+  //           fontSize: 18,
+  //           fontWeight: FontWeight.w600,
+  //         ),
+  //       ),
+  //       SizedBox(height: size.height * 0.01),
 
-        Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: const Color(0xFF101727),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Column(
-            children: [
-              ...viewModel.events.take(3).map((doc) {
-                final data = doc.data() as Map<String, dynamic>;
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.location_on, color: Color(0xFFFF8A3D)),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: Text(
-                          data['title'] ?? 'Event',
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              }),
+  //       Container(
+  //         padding: const EdgeInsets.all(16),
+  //         decoration: BoxDecoration(
+  //           color: const Color(0xFF101727),
+  //           borderRadius: BorderRadius.circular(20),
+  //         ),
+  //         child: Column(
+  //           children: [
+  //             ...viewModel.events.take(3).map((doc) {
+  //               final data = doc.data() as Map<String, dynamic>;
+  //               return Padding(
+  //                 padding: const EdgeInsets.only(bottom: 12),
+  //                 child: Row(
+  //                   children: [
+  //                     const Icon(Icons.location_on, color: Color(0xFFFF8A3D)),
+  //                     const SizedBox(width: 10),
+  //                     Expanded(
+  //                       child: Text(
+  //                         data['title'] ?? 'Event',
+  //                         style: const TextStyle(color: Colors.white),
+  //                       ),
+  //                     ),
+  //                   ],
+  //                 ),
+  //               );
+  //             }),
 
-              const SizedBox(height: 10),
+  //             const SizedBox(height: 10),
 
-              SizedBox(
-                width: double.infinity,
-                child: OutlinedButton(
-                  onPressed: () {
-                    // Later you can open Google Maps screen
-                  },
-                  style: OutlinedButton.styleFrom(
-                    side: const BorderSide(color: Color(0xFFFF8A3D)),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                  ),
-                  child: const Text(
-                    'View on Map',
-                    style: TextStyle(color: Color(0xFFFF8A3D)),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
+  //             SizedBox(
+  //               width: double.infinity,
+  //               child: OutlinedButton(
+  //                 onPressed: () {
+  //                   // Later you can open Google Maps screen
+  //                 },
+  //                 style: OutlinedButton.styleFrom(
+  //                   side: const BorderSide(color: Color(0xFFFF8A3D)),
+  //                   shape: RoundedRectangleBorder(
+  //                     borderRadius: BorderRadius.circular(16),
+  //                   ),
+  //                 ),
+  //                 child: const Text(
+  //                   'View on Map',
+  //                   style: TextStyle(color: Color(0xFFFF8A3D)),
+  //                 ),
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _buildFusionFeed(
     BuildContext context,

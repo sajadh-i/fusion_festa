@@ -88,6 +88,7 @@ class EventScreenView extends StatelessWidget {
                                       : const Offset(0, 0.1),
                                   child: _EventCard(
                                     event: event,
+                                    viewModel: viewModel,
                                     onTap: () {
                                       viewModel.onevettap(event.id);
                                     },
@@ -195,7 +196,8 @@ class _FilterRow extends StatelessWidget {
 class _EventCard extends StatelessWidget {
   final EventListModel event;
   final Function()? onTap;
-  const _EventCard({required this.event, this.onTap});
+  final EventScreenViewModel viewModel;
+  const _EventCard({required this.event, this.onTap, required this.viewModel});
 
   @override
   Widget build(BuildContext context) {
@@ -217,42 +219,54 @@ class _EventCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Image with error handling
             ClipRRect(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-              child: Image.network(
-                event.imageUrl,
-                height: 270,
-                width: double.infinity,
-                fit: BoxFit.fill,
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return Container(
-                    height: 190,
-                    color: Color(0xFF2E2221),
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: Color(0xFFFF8A3D),
-                      ),
-                    ),
-                  );
-                },
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    height: 190,
-                    color: Color(0xFF2E2221),
-                    child: Center(
-                      child: Icon(
-                        Icons.image_not_supported,
-                        color: Color(0xFFB7A9A6),
-                        size: 40,
-                      ),
-                    ),
-                  );
-                },
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(20),
+              ),
+              child: Stack(
+                children: [
+                  Image.network(
+                    event.imageUrl,
+                    height: 270,
+                    width: double.infinity,
+                    fit: BoxFit.fill,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        height: 190,
+                        color: Color(0xFF2E2221),
+                        child: Center(
+                          child: Icon(
+                            Icons.image_not_supported,
+                            color: Color(0xFFB7A9A6),
+                            size: 40,
+                          ),
+                        ),
+                      );
+                    },
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Container(
+                        height: 190,
+                        color: Color(0xFF2E2221),
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            color: Color(0xFFFF8A3D),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+
+                  Positioned(
+                    top: 12,
+                    left: 12,
+                    child: _StatusBadge(event: event, vm: viewModel),
+                  ),
+                ],
               ),
             ),
 
+            // Image with error handling
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 14, vertical: 12),
               child: Column(
@@ -339,6 +353,44 @@ class _EventCard extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _StatusBadge extends StatelessWidget {
+  final EventListModel event;
+  final EventScreenViewModel vm;
+
+  const _StatusBadge({required this.event, required this.vm});
+
+  @override
+  Widget build(BuildContext context) {
+    if (vm.isToday(event)) {
+      return badge("TODAY", Colors.green);
+    }
+
+    if (vm.isUpcoming(event)) {
+      return badge("UPCOMING", const Color(0xFFFF8A3D));
+    }
+
+    return badge("PAST", Colors.grey);
+  }
+
+  Widget badge(String text, Color color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      decoration: BoxDecoration(
+        color: color.withOpacity(0.9),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 11,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );

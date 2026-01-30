@@ -15,9 +15,11 @@ class ProfileViewModel extends BaseViewModel {
   String phone = '';
 
   bool notificationsEnabled = true;
+  bool eventReminderEnabled = true;
   String languageLabel = 'English';
   //LOAD USER DATA
   StreamSubscription<DocumentSnapshot>? _profileSub;
+  StreamSubscription? _bookingSub;
 
   Future<void> loadprofile() async {
     final user = FirebaseAuth.instance.currentUser!;
@@ -41,6 +43,9 @@ class ProfileViewModel extends BaseViewModel {
 
           notifyListeners();
         });
+    if (eventReminderEnabled) {
+      listenForBookingReminders();
+    }
   }
 
   void onEditProfileTap() {
@@ -74,6 +79,21 @@ class ProfileViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  Future<void> onEventReminderChanged(bool value) async {
+    final prefs = await SharedPreferences.getInstance();
+    eventReminderEnabled = value;
+    await prefs.setBool('event_reminder_enabled', value);
+
+    if (value) {
+      listenForBookingReminders();
+    }
+    // } else {
+    //   await localnotificationservice.cancelAll();
+    // }
+
+    notifyListeners();
+  }
+
   void onLanguageTap() {
     // open language bottom sheet
   }
@@ -97,6 +117,37 @@ class ProfileViewModel extends BaseViewModel {
     }
   }
 
+  void listenForBookingReminders() {
+    _bookingSub?.cancel();
+
+    _bookingSub = FirebaseFirestore.instance
+        .collection('bookings')
+        .where('userId', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+        .where('status', isEqualTo: 'CONFIRMED')
+        .snapshots()
+        .listen((snapshot) async {
+          for (final doc in snapshot.docs) {
+            final data = doc.data();
+
+            final eventTitle = data['eventTitle'];
+            final startAt = (data['startAt'] as Timestamp?)?.toDate();
+
+            if (startAt == null) continue;
+
+            final reminderTime = startAt.subtract(const Duration(hours: 1));
+
+            if (reminderTime.isAfter(DateTime.now())) {
+              await localnotificationservice.schedule(
+                id: doc.id.hashCode,
+                title: 'Event Reminder',
+                body: '$eventTitle starts in 1 hour',
+                scheduledTime: reminderTime,
+              );
+            }
+          }
+        });
+  }
+
   Future<void> onDeleteAccountTap() async {
     final confirm = await dialogService.showConfirmationDialog(
       title: 'Delete Account?',
@@ -116,6 +167,8 @@ class ProfileViewModel extends BaseViewModel {
 
       //Delete all events created by this user
       await eventservice.deleteEventsByUser(uid);
+      await homeservice.deleteReviewsByUser(uid);
+      await bookingservice.deleteBookingsByUser(uid);
 
       //Delete Firestore user document
       await userservice.deleteUserData();
@@ -147,5 +200,12 @@ class ProfileViewModel extends BaseViewModel {
     } finally {
       setBusy(false);
     }
+  }
+
+  @override
+  void dispose() {
+    _profileSub?.cancel();
+    _bookingSub?.cancel();
+    super.dispose();
   }
 }

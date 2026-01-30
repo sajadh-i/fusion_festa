@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
@@ -11,14 +13,21 @@ class TicketPdfService {
     required List tickets,
   }) async {
     final pdf = pw.Document();
-
+    final imageBytes = await rootBundle.load('assets/images/fusionticket.jpeg');
+    final logo = pw.MemoryImage(imageBytes.buffer.asUint8List());
     pdf.addPage(
       pw.Page(
         pageFormat: PdfPageFormat.a4,
         build: (context) {
           return pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.start,
+
             children: [
+              pw.Center(
+                child: pw.Image(logo, width: 120, fit: pw.BoxFit.cover),
+              ),
+
+              pw.SizedBox(height: 16),
               // Title
               pw.Text(
                 'Fusion Festa – Event Ticket',

@@ -77,4 +77,26 @@ class BookingService {
 
     return bookingId;
   }
+
+  //delete the booking details at account delete time
+  Future<void> deleteBookingsByUser(String uid) async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('bookings')
+        .where('userId', isEqualTo: uid)
+        .get();
+
+    for (final doc in snapshot.docs) {
+      await doc.reference.delete();
+    }
+  }
+
+  Stream<QuerySnapshot> userBookings() {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+
+    return _db
+        .collection('bookings')
+        .where('userId', isEqualTo: uid)
+        .where('status', isEqualTo: 'CONFIRMED')
+        .snapshots();
+  }
 }

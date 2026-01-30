@@ -1,5 +1,6 @@
 import 'package:fusion_festa/app/app.router.dart';
 import 'package:fusion_festa/services/security_prefes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter/material.dart';
 import 'package:fusion_festa/app/utils.dart';
@@ -54,5 +55,15 @@ class PasswordSecurityViewModel extends BaseViewModel {
     navigationService.navigateTo(Routes.changePasswordView);
   }
 
-  void ontaplogOutAllDevices() {}
+  Future<void> ontaplogOutAllDevices() async {
+    setBusy(true);
+    try {
+      await authservice.logout();
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove('onboarding_done');
+      navigationService.clearStackAndShow(Routes.loginView);
+    } finally {
+      setBusy(false);
+    }
+  }
 }
